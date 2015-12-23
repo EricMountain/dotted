@@ -1,0 +1,250 @@
+;; -*-Lisp-*-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; This program is free software; you can redistribute it and/or
+;; modify it under the terms of the GNU General Public License as
+;; published by the Free Software Foundation; either version 3, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+;; General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program; see the file COPYING.  If not, write to
+;; the Free Software Foundation, Inc., 51 Franklin Street, Fifth
+;; Floor, Boston, MA 02110-1301, USA.
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; Some blocks shamelessly copied from
+;; https://raw.githubusercontent.com/jordonbiondo/.emacs.d/master/init.el
+;; Jordon relies on emacs 25+ (e.g. use of (after)), however that is
+;; still in dev.
+;;
+
+(require 'package)
+
+;(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")))
+;(setq package-archives '(("marmalade" . "https://marmalade-repo.org/packages/")))
+;(setq package-archives '(("melpa" . "http://melpa.org/packages/")))
+
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/") ("marmalade" . "https://marmalade-repo.org/packages/") ("melpa" . "http://melpa.org/packages/")))
+
+(package-initialize)
+
+(when (not package-archive-contents)
+  (package-refresh-contents))
+(defvar tmtxt/packages
+  '(bind-key use-package))
+(dolist (p tmtxt/packages)
+  (when (not (package-installed-p p))
+    (package-install p)))
+
+(eval-when-compile
+  (require 'use-package))
+
+(use-package cl-lib)
+
+(use-package electric
+  :ensure t
+  :defer t)
+
+(use-package prog-mode
+  :init (progn
+          (add-hook 'prog-mode-hook 'electric-indent-mode)
+          (add-hook 'prog-mode-hook
+                    (defun indent-tabs-mode-off ()
+                      (interactive)
+                      (setq indent-tabs-mode nil)))))
+
+(use-package make-mode
+  :init (add-hook
+         'makefile-mode-hook
+         (defun local-makefile-mode-setup ()
+           (setq-local indent-tabs-mode t)))
+  :defer t)
+
+(use-package python
+  :mode ("\\<SConstruct\\>$" . python-mode)
+  :config (progn
+            (use-package elpy
+              :config (elpy-enable)
+              :ensure t))
+  :defer t)
+
+(use-package savehist
+  :init (savehist-mode t))
+
+(use-package hideshow
+  :bind ("C-c h" . hs-toggle-hiding)
+  :commands hs-toggle-hiding
+  :defer t)
+
+(use-package ispell
+  :bind (("C-c s w" . ispell-word)
+         ("C-c s b" . ispell-buffer))
+  :defer t)
+
+(use-package eldoc
+  :commands eldoc-mode)
+
+(use-package lisp-mode
+  :config (progn
+            (add-hook 'emacs-lisp-mode-hook 'eldoc-mode)
+            (add-hook 'lisp-interaction-mode-hook 'eldoc-mode)))
+
+(use-package cc-mode
+  :defer t
+  :config (progn
+            (font-lock-add-keywords
+             'c-mode
+             '(("\\<\\([A-Z_]\\([A-Z_0-9]\\)*\\)\\>" . font-lock-constant-face)))
+            (defun c-maybe-insert-semicolon()
+              "Insert a semicolon a the end of a line only if there isn't one."
+              (interactive)
+              (if (looking-at " *; *$")
+                  (progn (delete-region (point) (point-at-eol))
+                         (call-interactively 'self-insert-command))
+                (call-interactively 'self-insert-command)))
+            (bind-keys :map c-mode-map
+              (";" . c-maybe-insert-semicolon))))
+
+(use-package yaml-mode
+	     :defer t
+	     :ensure t)
+
+(use-package rust-mode
+	     :mode ("\\.rs$" . rust-mode)
+	     :config (setq rust-indent-offset 2)
+	     :defer t
+	     :ensure t)
+
+(use-package markdown-mode
+	     :defer t
+	     :ensure t
+	     :config
+	     (progn
+	       (add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
+	       (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+	       (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))))
+
+(use-package go-mode
+	     :defer t
+	     :ensure t
+	     :config
+	     (progn
+	       (require 'go-mode-autoloads)
+	       ;; gofmt when save
+	       (add-hook 'before-save-hook 'gofmt-before-save)
+	       ;; to remove unused import
+	       (add-hook 'go-mode-hook (lambda ()
+					 (local-set-key (kbd "C-c C-r") 'go-remove-unused-imports)))
+	       (add-hook 'go-mode-hook (lambda ()
+					 (local-set-key (kbd "C-c i") 'go-goto-imports)))
+	       ))
+
+(use-package web-mode
+	     :ensure t
+	     :mode ("\\.\\(html\\|phtml\\|tpl\\.php\\|php\\|[agj]sp\\|as[cp]x\\|erb\\|mustache\\|djhtml\\|js?\\|css?\\|scss?\\|xml?\\)$" . web-mode))
+
+(use-package gnuplot-mode
+	     :ensure t
+	     :mode ("\\.\\(gp\\|plot\\|gnuplot\\)$" . gnuplot-mode))
+
+(use-package magit
+  :bind (("C-x g" . magit-status)
+         ("C-c g b" . magit-blame)
+         ("C-c g l" . magit-log-buffer-file))
+  :commands magit-status
+  :config (progn
+            (bind-keys :map magit-status-mode-map
+                       ("C-c g o" . magit-checkout)
+                       ("C-c g r" . magit-diff-toggle-refine-hunk))
+            (setq magit-log-format-graph-function 'magit-log-format-unicode-graph)
+            (setq magit-status-buffer-switch-function 'switch-to-buffer
+                  magit-completing-read-function 'magit-ido-completing-read
+                  magit-revert-buffers 1
+                  magit-push-always-verify nil))
+  :ensure t)
+
+; allow reading of archives without unpacking them explicitly.
+(use-package jka-compr :ensure t)
+(use-package time-stamp :ensure t)
+
+(add-to-list 'auto-mode-alist '("\\.bash\\'" . sh-mode))
+(add-to-list 'auto-mode-alist '("\\.bats\\'" . sh-mode)) ;; BATS is like bash...
+(add-to-list 'auto-mode-alist '("\\.zsh\\'" . sh-mode))
+
+;; Various options =====================================================
+(setq inhibit-splash-screen t)
+
+(show-paren-mode)
+(setq show-paren-style 'mixed)
+
+(setq require-final-newline t)
+(setq delete-auto-save-files t)
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+(setq display-time-day-and-date t)
+(setq display-time-format "%R")
+(setq display-time-default-load-average nil)
+(display-time)
+
+(setq-default indent-tabs-mode nil)
+
+;; This makes the buffer scroll by only a single line when the up or
+;; down cursor keys push the cursor (tool-bar-mode) outside the
+;; buffer. The standard emacs behaviour is to reposition the cursor in
+;; the center of the screen, but this can make the scrolling confusing
+(setq scroll-step 1)
+
+;; Mouse wheel scrolling
+(mouse-wheel-mode t)
+
+;; Show line-number in the mode line
+(line-number-mode 1)
+
+;; Show column-number in the mode line
+(column-number-mode 1)
+
+;; Set fill column
+(setq-default fill-column 72)
+(turn-on-auto-fill)
+(setq c-default-style "linux" c-basic-offset 4)
+(setq-default indent-tabs-mode nil)
+
+(setq ring-bell-function 'ignore)
+
+;; Font ===============================================================
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(column-number-mode t)
+ '(delete-selection-mode nil)
+ '(display-time-mode t)
+ '(load-home-init-file t t)
+ '(ps-n-up-printing 2)
+ '(scroll-bar-mode (quote right))
+ '(show-paren-mode t)
+ '(tool-bar-mode nil)
+ '(x-select-enable-clipboard t))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:inherit nil :stipple nil :background "#ffffff" :foreground "#141312" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 98 :width normal :foundry "unknown" :family "DejaVu Sans Mono")))))
+
+;; UTF-8 as default encoding ===========================================
+(set-language-environment "UTF-8")
+
+;; Easy switching between windows ======================================
+(when (fboundp 'windmove-default-keybindings)
+  (windmove-default-keybindings 'meta))
+
+;; Start server ========================================================
+(server-start)

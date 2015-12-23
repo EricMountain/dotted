@@ -1,0 +1,125 @@
+#
+# ~/.bashrc
+#
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+alias ls='ls --color=auto'
+PS1='[\u@\h \W]\$ '
+
+for x in ~/.profile.d/*.sh ; do source $x ; done
+
+# don't put duplicate lines in the history. See bash(1) for more options
+# don't overwrite GNU Midnight Commander's setting of `ignorespace'.
+export HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
+# ... or force ignoredups and ignorespace
+export HISTCONTROL=ignoreboth
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# If this is an xterm set the title to user@host:dir
+case "$TERM" in
+xterm*|rxvt*)
+    PS1="\[\e]0;\u@\h: \w\a\]$PS1"
+    ;;
+*)
+    ;;
+esac
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    eval "`dircolors -b`"
+    alias ls='ls --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+export EDITOR=vim
+
+# Git prompt
+# Configure Git to output in colour: git config --global color.ui true
+source /usr/share/git/completion/git-prompt.sh
+#PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ '
+
+export GIT_PS1_SHOWDIRTYSTATE=1
+# $ flag appears if something is stashed
+#export GIT_PS1_SHOWSTASHSTATE=1
+export GIT_PS1_SHOWUNTRACKEDFILES=1
+export GIT_PS1_SHOWUPSTREAM=auto
+export GIT_PS1_SHOWCOLORHINTS=1
+
+set_prompt () {
+    Last_Command=$? # Must come first!
+    Blue='\[\e[01;34m\]'
+    White='\[\e[01;37m\]'
+    Red='\[\e[01;31m\]'
+    Green='\[\e[01;32m\]'
+    Cyan='\[\e[36m\]'
+    Reset='\[\e[00m\]'
+    FancyX='\342\234\227'
+    Checkmark='\342\234\223'
+
+    PS1=""
+    # If last command was successful, print a green check mark. Otherwise, print
+    # a red X.
+    if [[ $Last_Command == 0 ]]; then
+        PS1+="$Green$Checkmark "
+    else
+        PS1+="$Red$FancyX "
+    fi
+    # If root, just print the host in red. Otherwise, print the current user
+    # and host in another colour.
+    if [[ $EUID == 0 ]]; then
+        PS1+="$Red\\h "
+    else
+        PS1+="$Cyan\\u@\\h "
+    fi
+    # Print the working directory and prompt marker in white
+    PS1+="$White\\w$(__git_ps1 " (%s)") "
+
+
+    #, and reset
+    # the text color to the default.
+    PS1+="\\\$$Reset "
+}
+PROMPT_COMMAND='set_prompt'
+
+# Ruby gems
+export PATH=$PATH:$HOME/.gem/ruby/2.2.0/bin
+
+alias gl='git log --pretty=oneline --graph --decorate'
+alias gla='git log --pretty=oneline --graph --decorate --all'
+alias gv='git describe --tags --always --dirty'
+alias grel='git log $1^..$2 --pretty=oneline --graph --decorate --no-merges'
+
+if [[ -z "$TMPDIR" ]] ; then
+  export TMPDIR="/tmp/$USER"
+fi
+
+if [[ ! -d "$TMPDIR" ]]; then
+  export TMPDIR="/tmp/$USER"
+  mkdir -m 700 "$TMPDIR"
+fi
+
+# 1A-specific:
+alias 2scr='$HOME/.screenlayout/work-dual-screen.sh'
+alias 1scr='$HOME/.screenlayout/laptop-screen.sh'
+alias homescr='$HOME/.screenlayout/home-dual-screen.sh'
+alias 273='sshfs -o transform_symlinks emountain@ncegcolnx273.nce.amadeus.net:/ ~/273/'
+alias x304='ssh -t emountain@ncegcolnx304.nce.amadeus.net screen -D -RR'
+#alias smtpclient_test='gnutls-cli -V --crlf --starttls smtpclient.amadeus.com --port 587'
+#alias smtpclient_test2='gnutls-cli --crlf --starttls smtpclient.amadeus.com --port 587 --insecure'
+alias dockerlogin='curl --insecure --user emountain https://dockerhub.rnd.amadeus.net:5002/v2/auth'
