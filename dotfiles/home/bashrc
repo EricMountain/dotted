@@ -8,7 +8,7 @@
 alias ls='ls --color=auto'
 PS1='[\u@\h \W]\$ '
 
-for x in ~/.profile.d/*.sh ; do source $x ; done
+[[ -d ~/.profile.d ]] && for x in ~/.profile.d/*.sh ; do source $x ; done
 
 # don't put duplicate lines in the history. See bash(1) for more options
 # don't overwrite GNU Midnight Commander's setting of `ignorespace'.
@@ -104,8 +104,8 @@ done
 [[ -z "$TMPDIR" ]] && export TMPDIR="/tmp/$USER"
 [[ ! -d "$TMPDIR" ]] && export TMPDIR="/tmp/$USER" && mkdir -m 700 "$TMPDIR"
 
-alias gl='git log --graph --decorate --date=relative --format="%C(yellow)%h%Creset %C(green)%cr%Creset %s%C(bold red)%d%C(reset)"'
-alias gla='git log --graph --decorate --date=relative --format="%C(yellow)%h%Creset %C(green)%cr%Creset %s%C(bold red)%d%C(reset)" --all'
+alias gl='git log --graph --decorate --date=relative --format="%C(yellow)%h%C(reset) %C(green)%cr%Creset %s%C(bold red)%d%C(white) [%aN]%C(reset)"'
+alias gla='git log --graph --decorate --date=relative --format="%C(yellow)%h%C(reset) %C(green)%cr%Creset %s%C(bold red)%d%C(white) [%aN]%C(reset)" --all'
 alias gv='git describe --tags --always --dirty'
 alias grel='git log $1^..$2 --pretty=oneline --graph --decorate --no-merges'
 alias doSshFS='echo sshfs -o transform_symlinks user@machine:/ ~/sshfs_mount/'
