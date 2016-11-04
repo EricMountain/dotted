@@ -97,13 +97,11 @@ set_prompt () {
 }
 PROMPT_COMMAND='set_prompt'
 
-# Ruby gems
-export PATH=$PATH:$HOME/.gem/ruby/2.2.0/bin
-
-alias gl='git log --pretty=oneline --graph --decorate'
-alias gla='git log --pretty=oneline --graph --decorate --all'
-alias gv='git describe --tags --always --dirty'
-alias grel='git log $1^..$2 --pretty=oneline --graph --decorate --no-merges'
+for d in $HOME/.VScode-linux-x64/bin $HOME/.gem/ruby/2.3.0/bin $HOME/dev/etcd/bin /opt/HipChat4/bin ; do
+    if [[ -d  ]] ; then
+        export PATH=$PATH:$d
+    fi
+done
 
 if [[ -z "$TMPDIR" ]] ; then
   export TMPDIR="/tmp/$USER"
@@ -114,12 +112,16 @@ if [[ ! -d "$TMPDIR" ]]; then
   mkdir -m 700 "$TMPDIR"
 fi
 
-# 1A-specific:
-alias 2scr='$HOME/.screenlayout/work-dual-screen.sh'
-alias 1scr='$HOME/.screenlayout/laptop-screen.sh'
-alias homescr='$HOME/.screenlayout/home-dual-screen.sh'
-alias 273='sshfs -o transform_symlinks emountain@ncegcolnx273.nce.amadeus.net:/ ~/273/'
-alias x304='ssh -t emountain@ncegcolnx304.nce.amadeus.net screen -D -RR'
-#alias smtpclient_test='gnutls-cli -V --crlf --starttls smtpclient.amadeus.com --port 587'
-#alias smtpclient_test2='gnutls-cli --crlf --starttls smtpclient.amadeus.com --port 587 --insecure'
-alias dockerlogin='curl --insecure --user emountain https://dockerhub.rnd.amadeus.net:5002/v2/auth'
+alias gl='git log --graph --decorate --date=relative --format="%C(yellow)%h%Creset %C(green)%cr%Creset %s%C(bold red)%d%C(reset)"'
+alias gla='git log --graph --decorate --date=relative --format="%C(yellow)%h%Creset %C(green)%cr%Creset %s%C(bold red)%d%C(reset)" --all'
+alias gv='git describe --tags --always --dirty'
+alias grel='git log $1^..$2 --pretty=oneline --graph --decorate --no-merges'
+alias doSshFS='echo sshfs -o transform_symlinks user@machine:/ ~/sshfs_mount/'
+alias doScreen='echo ssh -t user@machine screen -D -RR'
+alias smtpclient_test='echo gnutls-cli -V --crlf --starttls some_smtp_mailhub --port 587'
+alias smtpclient_test2='echo gnutls-cli --crlf --starttls some_smtp_mailhub --port 587 --insecure'
+alias dockerlogin='echo curl --insecure --user emountain https://dockerhub.wherever:5000/v2/auth'
+
+if [[ -f $HOME/.set-openstack-credentials ]] ; then
+   . $HOME/.set-openstack-credentials
+fi
