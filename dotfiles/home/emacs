@@ -173,6 +173,9 @@
 (use-package jka-compr :ensure t)
 (use-package time-stamp :ensure t)
 
+(use-package puppet-mode :ensure t)
+(use-package flymake-puppet :ensure t)
+
 (add-to-list 'auto-mode-alist '("\\.bash\\'" . sh-mode))
 (add-to-list 'auto-mode-alist '("\\.bats\\'" . sh-mode)) ;; BATS is like bash...
 (add-to-list 'auto-mode-alist '("\\.zsh\\'" . sh-mode))
@@ -227,11 +230,14 @@
  '(delete-selection-mode nil)
  '(display-time-mode t)
  '(load-home-init-file t t)
+ '(package-selected-packages
+   (quote
+    (elpy yaml-mode web-mode use-package rust-mode puppet-mode markdown-mode magit go-mode gnuplot-mode flymake-puppet ansible)))
  '(ps-n-up-printing 2)
  '(scroll-bar-mode (quote right))
+ '(select-enable-clipboard t)
  '(show-paren-mode t)
- '(tool-bar-mode nil)
- '(x-select-enable-clipboard t))
+ '(tool-bar-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
