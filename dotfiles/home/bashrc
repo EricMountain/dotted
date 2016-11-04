@@ -98,19 +98,11 @@ set_prompt () {
 PROMPT_COMMAND='set_prompt'
 
 for d in $HOME/.VScode-linux-x64/bin $HOME/.gem/ruby/2.3.0/bin $HOME/dev/etcd/bin /opt/HipChat4/bin ; do
-    if [[ -d  ]] ; then
-        export PATH=$PATH:$d
-    fi
+    [[ -d $d ]] && export PATH=$PATH:$d
 done
 
-if [[ -z "$TMPDIR" ]] ; then
-  export TMPDIR="/tmp/$USER"
-fi
-
-if [[ ! -d "$TMPDIR" ]]; then
-  export TMPDIR="/tmp/$USER"
-  mkdir -m 700 "$TMPDIR"
-fi
+[[ -z "$TMPDIR" ]] && export TMPDIR="/tmp/$USER"
+[[ ! -d "$TMPDIR" ]] && export TMPDIR="/tmp/$USER" && mkdir -m 700 "$TMPDIR"
 
 alias gl='git log --graph --decorate --date=relative --format="%C(yellow)%h%Creset %C(green)%cr%Creset %s%C(bold red)%d%C(reset)"'
 alias gla='git log --graph --decorate --date=relative --format="%C(yellow)%h%Creset %C(green)%cr%Creset %s%C(bold red)%d%C(reset)" --all'
