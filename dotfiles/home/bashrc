@@ -49,20 +49,29 @@ fi
 
 export EDITOR=vim
 
+PS0='$(touch $TMPDIR/.bash.cmd.start.pid.$$)'
+
 # Git prompt
 # Configure Git to output in colour: git config --global color.ui true
 source /usr/share/git/completion/git-prompt.sh
 #PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ '
 
 export GIT_PS1_SHOWDIRTYSTATE=1
-# $ flag appears if something is stashed
-#export GIT_PS1_SHOWSTASHSTATE=1
+export GIT_PS1_SHOWSTASHSTATE=1
 export GIT_PS1_SHOWUNTRACKEDFILES=1
 export GIT_PS1_SHOWUPSTREAM=auto
 export GIT_PS1_SHOWCOLORHINTS=1
 
 set_prompt () {
     Last_Command=$? # Must come first!
+
+    starttime=$(stat --format="%Y" $TMPDIR/.bash.cmd.start.pid.$$ 2> /dev/null)
+    if [[ -n $starttime ]] ; then
+        duration=$(date "+%s" -d "now -$starttime seconds")
+    else
+        duration=
+    fi
+
     Blue='\[\e[01;34m\]'
     White='\[\e[01;37m\]'
     Red='\[\e[01;31m\]'
@@ -76,10 +85,14 @@ set_prompt () {
     # If last command was successful, print a green check mark. Otherwise, print
     # a red X.
     if [[ $Last_Command == 0 ]]; then
-        PS1+="$Green$Checkmark "
+        PS1+="$Green[ $Checkmark "
     else
-        PS1+="$Red$FancyX "
+        PS1+="$Red[ $FancyX "
     fi
+
+    [[ -n $duration ]] && PS1+="$duration\" "
+    PS1+="] "
+    
     # If root, just print the host in red. Otherwise, print the current user
     # and host in another colour.
     if [[ $EUID == 0 ]]; then
