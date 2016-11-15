@@ -97,7 +97,7 @@ set_prompt () {
 }
 PROMPT_COMMAND='set_prompt'
 
-for d in $HOME/.VScode-linux-x64/bin $HOME/.gem/ruby/2.3.0/bin $HOME/dev/etcd/bin /opt/HipChat4/bin ; do
+for d in $HOME/.VScode-linux-x64/bin $HOME/.gem/ruby/2.3.0/bin $HOME/dev/etcd/bin /opt/HipChat4/bin $HOME/bin ; do
     [[ -d $d ]] && export PATH=$PATH:$d
 done
 
