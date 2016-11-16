@@ -99,7 +99,7 @@ set_prompt () {
 
     printf "$prompt"
 }
-PROMPT_COMMAND='__git_ps1 "\$(set_prompt) \[\e[01;36m\]\u@\h \[\e[01;37m\]\w\[\e[00m\]" " \[\e[01;35m\]\\\$\[\e[00m\] "'
+PROMPT_COMMAND='__git_ps1 "\$(set_prompt) \[\e[01;36m\]\u@\h \[\e[01;37m\]\w\[\e[00m\]" " \[\e[01;35m\]❯\[\e[00m\] "'
 
 for d in $HOME/.VScode-linux-x64/bin $HOME/.gem/ruby/2.3.0/bin $HOME/dev/etcd/bin /opt/HipChat4/bin $HOME/bin ; do
     [[ -d $d ]] && export PATH=$PATH:$d
