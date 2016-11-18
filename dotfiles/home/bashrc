@@ -49,7 +49,19 @@ fi
 export EDITOR=vim
 
 # Git prompt configuration
-source /usr/share/git/completion/git-prompt.sh
+#source /usr/share/git/completion/git-prompt.sh
+
+function source_git_prompt() {
+    local bashrc_dir=$(dirname $(readlink -f ${BASH_SOURCE[0]}))
+
+    if [[ -f $bashrc_dir/git-prompt.sh ]] ; then
+        source $bashrc_dir/git-prompt.sh
+    else
+        source /usr/share/git/completion/git-prompt.sh
+    fi
+}
+
+source_git_prompt
 
 export GIT_PS1_SHOWDIRTYSTATE=1
 export GIT_PS1_SHOWSTASHSTATE=1
@@ -61,7 +73,7 @@ export GIT_PS1_SHOWCOLORHINTS=1
 # Based on http://stackoverflow.com/a/20026992/3023502
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 
-function python_virtualenv(){
+function python_virtualenv() {
     if [[ -n "$VIRTUAL_ENV" ]]; then
         # Strip out the path and just leave the env name
         echo "(${VIRTUAL_ENV##*/})"
@@ -71,7 +83,7 @@ function python_virtualenv(){
 # Timetstamp to calculate command duration
 PS0='$(touch $TMPDIR/.bash.cmd.start.pid.$$)'
 
-set_prompt () {
+set_prompt() {
     Last_Command=$? # Must come first!
 
     starttime=$(stat --format="%Y" $TMPDIR/.bash.cmd.start.pid.$$ 2> /dev/null)
