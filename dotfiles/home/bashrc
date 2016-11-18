@@ -67,6 +67,7 @@ set_prompt () {
     starttime=$(stat --format="%Y" $TMPDIR/.bash.cmd.start.pid.$$ 2> /dev/null)
     if [[ -n $starttime ]] ; then
         duration=$(date "+%s" -d "now -$starttime seconds")
+        rm $TMPDIR/.bash.cmd.start.pid.$$
     else
         duration=
     fi
