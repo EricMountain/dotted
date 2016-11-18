@@ -50,10 +50,7 @@ fi
 
 export EDITOR=vim
 
-PS0='$(touch $TMPDIR/.bash.cmd.start.pid.$$)'
-
-# Git prompt
-# Configure Git to output in colour: git config --global color.ui true
+# Git prompt configuration
 source /usr/share/git/completion/git-prompt.sh
 
 export GIT_PS1_SHOWDIRTYSTATE=1
@@ -61,6 +58,20 @@ export GIT_PS1_SHOWSTASHSTATE=1
 export GIT_PS1_SHOWUNTRACKEDFILES=1
 export GIT_PS1_SHOWUPSTREAM="auto verbose name"
 export GIT_PS1_SHOWCOLORHINTS=1
+
+# Python virtualenv prompt configuration
+# Based on http://stackoverflow.com/a/20026992/3023502
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+
+function python_virtualenv(){
+    if [[ -n "$VIRTUAL_ENV" ]]; then
+        # Strip out the path and just leave the env name
+        echo "(${VIRTUAL_ENV##*/})"
+    fi
+}
+
+# Timetstamp to calculate command duration
+PS0='$(touch $TMPDIR/.bash.cmd.start.pid.$$)'
 
 set_prompt () {
     Last_Command=$? # Must come first!
@@ -101,7 +112,7 @@ set_prompt () {
 
     printf "$prompt"
 }
-PROMPT_COMMAND='__git_ps1 "\n\$(set_prompt) \[\e[01;36m\]\u@\h \[\e[01;37m\]\W\[\e[00m\]" "\n\[\e[01;35m\]❯\[\e[00m\] "'
+PROMPT_COMMAND='__git_ps1 "\n\$(set_prompt) \[\e[01;36m\]\u@\h \[\e[01;37m\]\W\[\e[00m\] \[\e[01;33m\]\$(python_virtualenv)\[\e[00m\]" "\n\[\e[01;35m\]❯\[\e[00m\] "'
 
 for d in $HOME/.VScode-linux-x64/bin $HOME/.gem/ruby/2.3.0/bin $HOME/dev/etcd/bin /opt/HipChat4/bin $HOME/bin ; do
     [[ -d $d ]] && export PATH=$PATH:$d
