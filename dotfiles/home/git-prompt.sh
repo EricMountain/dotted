@@ -3,7 +3,8 @@
 # Copyright (C) 2006,2007 Shawn O. Pearce <spearce@spearce.org>
 # Distributed under the GNU General Public License, version 2.0.
 #
-# Forked from the Git package original.  Minor symbol changes.
+# ** Forked from the Git package original.  Minor symbol changes.
+# ** See top-level README.md
 #
 # This script allows you to see repository status in your prompt.
 #
