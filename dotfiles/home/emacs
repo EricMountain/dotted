@@ -173,7 +173,7 @@
 (use-package jka-compr :ensure t)
 (use-package time-stamp :ensure t)
 
-(use-package puppet-mode :ensure t)
+(ignore-errors (use-package puppet-mode :ensure t))
 (use-package flymake-puppet :ensure t)
 
 (add-to-list 'auto-mode-alist '("\\.bash\\'" . sh-mode))
