@@ -1,0 +1,3 @@
+ssh() {
+      echo docker run --rm -it -v $HOME/.ssh:/root/.ssh … arch_openssh "$@"
+}

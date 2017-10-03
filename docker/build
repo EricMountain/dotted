@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -euo pipefail
+
+for x in * ; do
+    [[ -d "$x" ]] || continue
+    [[ -x "$x/build" ]] || continue
+
+    pushd $x
+    ./build
+    popd
+done
