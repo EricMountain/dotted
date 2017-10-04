@@ -1,3 +1,3 @@
 FROM arch:latest
 
-RUN pacman -S openssh
+RUN pacman -S --noconfirm openssh
