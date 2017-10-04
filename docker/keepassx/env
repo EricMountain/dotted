@@ -1,0 +1,24 @@
+# -*- mode: sh -*-
+
+dockerkeepassx() {
+    # See https://stackoverflow.com/questions/16296753/can-you-run-gui-apps-in-a-docker-container
+    local xauth=~/.docker.xauth
+    xauth nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -f $xauth nmerge -
+
+    docker run --rm \
+           -it \
+           --user 1000 \
+           -v /etc/passwd:/etc/passwd:ro \
+           -v /etc/group:/etc/group:ro \
+           -v $HOME/.keepassx/database.kdb \
+           -v $HOME/.config/keepassx \
+           -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
+           -v $xauth:/root/.xauth:ro \
+           -v /dev/shm:/dev/shm:ro \
+           --ipc=host \
+           --net=host \
+           -e "DISPLAY=${DISPLAY}" \
+           -e "XAUTHORITY=/root/.xauth" \
+           arch_keepassx \
+           /usr/bin/keepassx $HOME/.keepassx/database.kdb "$@"
+}
