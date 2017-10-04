@@ -49,7 +49,6 @@ fi
 export EDITOR=vim
 
 # Git prompt configuration
-#source /usr/share/git/completion/git-prompt.sh
 
 function source_git_prompt() {
     local bashrc_dir=$(dirname $(readlink -f ${BASH_SOURCE[0]}))
@@ -116,7 +115,7 @@ set_prompt() {
 
     [[ -n $duration ]] && prompt+="$duration\" "
     prompt+="]"
-    
+
     # and reset the text color to the default.
     prompt+="$Reset"
 
@@ -147,3 +146,12 @@ if [[ -f $HOME/.set-openstack-credentials ]] ; then
 fi
 
 [[ -d ~/.global_npm/bin ]] && export PATH=$PATH:~/.global_npm/bin
+
+function source_docker_env() {
+    local bashrc_dir=$(dirname $(readlink -f ${BASH_SOURCE[0]}))
+
+    grep -q 'NAME="Ubuntu"' /etc/*-release && . ${bashrc_dir}/../docker/env
+    true
+}
+
+source_docker_env

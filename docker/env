@@ -1,0 +1,3 @@
+for x in * ; do
+    [[ -e "$x/env" ]] && . "$x/env"
+done
