@@ -145,3 +145,5 @@ alias dockerlogin='echo curl --insecure --user emountain https://dockerhub.where
 if [[ -f $HOME/.set-openstack-credentials ]] ; then
    . $HOME/.set-openstack-credentials
 fi
+
+[[ -d ~/.global_npm/bin ]] && export PATH=$PATH:~/.global_npm/bin
