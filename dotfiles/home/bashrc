@@ -151,9 +151,9 @@ function source_docker_env() {
     local bashrc_dir=$(dirname $(readlink -f ${BASH_SOURCE[0]}))
 
     if grep -q 'NAME="Ubuntu"' /etc/*-release ; then
-        pushd ${bashrc_dir}/../../docker
+        pushd ${bashrc_dir}/../../docker &> /dev/null
         . ./env
-        popd
+        popd &> /dev/null
     fi
 }
 
