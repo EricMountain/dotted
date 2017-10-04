@@ -1,3 +1,3 @@
-ssh() {
-      echo docker run --rm -it -v $HOME/.ssh:/root/.ssh … arch_openssh "$@"
+dockerssh() {
+      echo docker run --rm -it --user $USER -v $HOME/.ssh:/root/.ssh … arch_openssh "$@"
 }
