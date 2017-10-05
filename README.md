@@ -1,6 +1,6 @@
 # Dotted
 
-Repository and install scripts for dot-files used across multiple systems.  Includes configuration for Emacs, Bash...
+Repository and install scripts for dot-files used across multiple systems.  Includes configuration for Emacs, Bash... and Docker images for certain tools.
 
 # Upstream sources
 
