@@ -2,7 +2,7 @@
 
 Repository and install scripts for dot-files used across multiple systems.  Includes configuration for Emacs, Bash...
 
-# Previous work
+# Upstream sources
 
 ## Git prompt
 
