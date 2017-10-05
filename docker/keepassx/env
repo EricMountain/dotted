@@ -1,24 +1,26 @@
 # -*- mode: sh -*-
 
-dockerkeepassx() {
+# Typical usage: keepassx $HOME/.keepassx/database.kdb
+
+keepassx() {
     # See https://stackoverflow.com/questions/16296753/can-you-run-gui-apps-in-a-docker-container
-    local xauth=~/.docker.xauth
+    local xauth=$HOME/.docker.xauth
     xauth nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -f $xauth nmerge -
 
-    docker run --rm \
+    docker run \
+           --rm \
            -it \
+           -h cxr-keepassx \
            --user 1000 \
+           --ipc=host \
            -v /etc/passwd:/etc/passwd:ro \
            -v /etc/group:/etc/group:ro \
-           -v $HOME/.keepassx/database.kdb \
-           -v $HOME/.config/keepassx \
-           -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
-           -v $xauth:/root/.xauth:ro \
-           -v /dev/shm:/dev/shm:ro \
-           --ipc=host \
-           --net=host \
+           -v $HOME/.keepassx/:$HOME/.keepassx/ \
+           -v $HOME/.config/keepassx/:$HOME/.config/keepassx/ \
+           -v /tmp/.X11-unix:/tmp/.X11-unix:ro \
+           -v $xauth:$xauth:ro \
            -e "DISPLAY=${DISPLAY}" \
-           -e "XAUTHORITY=/root/.xauth" \
+           -e "XAUTHORITY=$xauth" \
            arch_keepassx \
-           /usr/bin/keepassx $HOME/.keepassx/database.kdb "$@"
+           /usr/bin/keepassx "$@"
 }
