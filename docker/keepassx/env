@@ -11,7 +11,7 @@ keepassx() {
            --rm \
            -it \
            -h cxr-keepassx \
-           --user 1000 \
+           --user $(id -u) \
            --ipc=host \
            -v /etc/passwd:/etc/passwd:ro \
            -v /etc/group:/etc/group:ro \
