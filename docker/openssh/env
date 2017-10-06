@@ -14,3 +14,18 @@ ssh() {
            arch_openssh \
            ssh "$@"
 }
+
+scp() {
+    docker run \
+           --rm \
+           -it \
+           -h cxr-openssh \
+           --user $(id -u) \
+           --net=host \
+           -v /etc/passwd:/etc/passwd:ro \
+           -v /etc/group:/etc/group:ro \
+           -v $HOME:$HOME \
+           -e SSH_AUTH_SOCK \
+           arch_openssh \
+           scp "$@"
+}
