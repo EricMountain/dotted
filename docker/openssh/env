@@ -1,6 +1,6 @@
 # -*- mode: sh -*-
 
-dockerssh() {
+ssh() {
     docker run \
            --rm \
            -it \
