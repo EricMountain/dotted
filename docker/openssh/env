@@ -1,3 +1,16 @@
+# -*- mode: sh -*-
+
 dockerssh() {
-      echo docker run --rm -it --user $USER -v $HOME/.ssh:/root/.ssh … arch_openssh "$@"
+    docker run \
+           --rm \
+           -it \
+           -h cxr-openssh \
+           --user $(id -u) \
+           --net=host \
+           -v /etc/passwd:/etc/passwd:ro \
+           -v /etc/group:/etc/group:ro \
+           -v $HOME/.ssh:$HOME/.ssh \
+           -e SSH_AUTH_SOCK \
+           arch_openssh \
+           ssh "$@"
 }
