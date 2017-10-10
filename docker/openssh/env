@@ -26,6 +26,7 @@ scp() {
            -v /etc/group:/etc/group:ro \
            -v $HOME:$HOME \
            -e SSH_AUTH_SOCK \
+           -w $(pwd) \
            arch_openssh \
            scp "$@"
 }
