@@ -1,5 +1,1 @@
-#!/bin/bash
-
-set -euo pipefail
-
-docker build -t arch_$(basename $(pwd)) .
+../image_build
