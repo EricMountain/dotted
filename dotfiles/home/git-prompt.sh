@@ -212,11 +212,11 @@ __git_ps1_show_upstream ()
 		"0	0") # equal to upstream
 			p="" ;;
 		"0	"*) # ahead of upstream
-			p=" ⭡${count#0	}" ;;
+			p=" ↑${count#0	}" ;;
 		*"	0") # behind upstream
-			p=" ⭣${count%	0}" ;;
+			p=" ↓${count%	0}" ;;
 		*)	    # diverged from upstream
-			p=" ⭡${count#*	}⭣${count%	*}" ;;
+			p=" ↑${count#*	}↓${count%	*}" ;;
 		esac
 		if [[ -n "$count" && -n "$name" ]]; then
 			__git_ps1_upstream_name=$(git rev-parse \
@@ -488,7 +488,7 @@ __git_ps1 ()
 		if [ -n "${GIT_PS1_SHOWSTASHSTATE-}" ] &&
 		   git rev-parse --verify --quiet refs/stash >/dev/null
 		then
-			s="🏴"
+			s="⛳"
 		fi
 
 		if [ -n "${GIT_PS1_SHOWUNTRACKEDFILES-}" ] &&
