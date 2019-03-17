@@ -9,7 +9,7 @@ keepassx() {
 
     docker run \
            --rm \
-           -it \
+           -d \
            -h cxr-keepassx \
            --user $(id -u) \
            --ipc=host \
