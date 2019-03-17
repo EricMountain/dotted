@@ -46,6 +46,10 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
+# Relax the umask - needed for libvirt related stuff
+# Base setting is through pam_umask + /etc/login.defs
+umask 0002
+
 export EDITOR=vim
 
 # Git prompt configuration
@@ -124,12 +128,12 @@ set_prompt() {
 
 PROMPT_COMMAND='__git_ps1 "\n\$(set_prompt) \[\e[01;36m\]\u@\h \[\e[01;37m\]\w\[\e[00m\] \[\e[01;33m\]\$(python_virtualenv)\[\e[00m\]" "\n\[\e[01;35m\]❱\[\e[00m\] "'
 
-for d in $HOME/bin ; do
+for d in $HOME/bin $HOME/.go/bin $HOME/dev/minishift ; do
     [[ -d $d ]] && export PATH=$PATH:$d
 done
 
 [[ -z "$TMPDIR" ]] && export TMPDIR="/tmp/$USER"
-[[ ! -d "$TMPDIR" ]] && export TMPDIR="/tmp/$USER" && mkdir -m 700 "$TMPDIR"
+[[ ! -d "$TMPDIR" ]] && mkdir -m 700 "$TMPDIR" && export TMPDIR="/tmp/$USER"
 
 alias gl='git log --graph --decorate --date=relative --format="%C(yellow)%h%C(reset) %C(green)%cr%Creset %s%C(bold red)%d%C(white) [%aN]%C(reset)"'
 alias gla='git log --graph --decorate --date=relative --format="%C(yellow)%h%C(reset) %C(green)%cr%Creset %s%C(bold red)%d%C(white) [%aN]%C(reset)" --all'
