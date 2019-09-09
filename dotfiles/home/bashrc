@@ -1,4 +1,4 @@
-# -*- mode: sh -*-
+#!/bin/bash -*- mode: sh -*-
 #
 # ~/.bashrc
 #
@@ -9,36 +9,36 @@
 alias ls='ls --color=auto'
 PS1='[\u@\h \W]\$ '
 
-[[ -d ~/.profile.d ]] && for x in ~/.profile.d/*.sh ; do source $x ; done
+[[ -d ~/.profile.d ]] && for x in ~/.profile.d/*.sh; do source $x; done
 
 # don't put duplicate lines in the history. See bash(1) for more options
 # don't overwrite GNU Midnight Commander's setting of `ignorespace'.
 export HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
 
 # append to the history file, don't overwrite it
-shopt -s histappend
+[ -z "$ZSH_NAME" ] && shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
-shopt -s checkwinsize
+[ -z "$ZSH_NAME" ] && shopt -s checkwinsize
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
-xterm*|rxvt*)
+xterm* | rxvt*)
     PS1="\[\e]0;\u@\h: \w\a\]$PS1"
     ;;
-*)
-    ;;
+*) ;;
+
 esac
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
-    eval "`dircolors -b`"
+    eval "$(dircolors -b)"
     alias ls='ls --color=auto'
 
     alias grep='grep --color=auto'
@@ -52,83 +52,85 @@ umask 0002
 
 export EDITOR=vim
 
-# Git prompt configuration
+if [ -z "$ZSH_NAME" ]; then
+    # Git prompt configuration
 
-function source_git_prompt() {
-    local bashrc_dir=$(dirname $(readlink -f ${BASH_SOURCE[0]}))
+    function source_git_prompt() {
+        local bashrc_dir=$(dirname $(readlink -f ${BASH_SOURCE[0]}))
 
-    if [[ -f $bashrc_dir/git-prompt.sh ]] ; then
-        source $bashrc_dir/git-prompt.sh
-    else
-        source /usr/share/git/completion/git-prompt.sh
-    fi
-}
+        if [[ -f $bashrc_dir/git-prompt.sh ]]; then
+            source $bashrc_dir/git-prompt.sh
+        else
+            source /usr/share/git/completion/git-prompt.sh
+        fi
+    }
 
-source_git_prompt
+    source_git_prompt
 
-export GIT_PS1_SHOWDIRTYSTATE=1
-export GIT_PS1_SHOWSTASHSTATE=1
-export GIT_PS1_SHOWUNTRACKEDFILES=1
-export GIT_PS1_SHOWUPSTREAM="auto verbose name"
-export GIT_PS1_SHOWCOLORHINTS=1
+    export GIT_PS1_SHOWDIRTYSTATE=1
+    export GIT_PS1_SHOWSTASHSTATE=1
+    export GIT_PS1_SHOWUNTRACKEDFILES=1
+    export GIT_PS1_SHOWUPSTREAM="auto verbose name"
+    export GIT_PS1_SHOWCOLORHINTS=1
 
-# Python virtualenv prompt configuration
-# Based on http://stackoverflow.com/a/20026992/3023502
-export VIRTUAL_ENV_DISABLE_PROMPT=1
+    # Python virtualenv prompt configuration
+    # Based on http://stackoverflow.com/a/20026992/3023502
+    export VIRTUAL_ENV_DISABLE_PROMPT=1
 
-function python_virtualenv() {
-    if [[ -n "$VIRTUAL_ENV" ]]; then
-        # Strip out the path and just leave the env name
-        echo "(${VIRTUAL_ENV##*/})"
-    fi
-}
+    function python_virtualenv() {
+        if [[ -n "$VIRTUAL_ENV" ]]; then
+            # Strip out the path and just leave the env name
+            echo "(${VIRTUAL_ENV##*/})"
+        fi
+    }
 
-# Timetstamp to calculate command duration
-PS0='$(touch $TMPDIR/.bash.cmd.start.pid.$$)'
+    # Timetstamp to calculate command duration
+    PS0='$(touch $TMPDIR/.bash.cmd.start.pid.$$)'
 
-set_prompt() {
-    Last_Command=$? # Must come first!
+    set_prompt() {
+        Last_Command=$? # Must come first!
 
-    starttime=$(stat --format="%Y" $TMPDIR/.bash.cmd.start.pid.$$ 2> /dev/null)
-    if [[ -n $starttime ]] ; then
-        duration=$(date "+%s" -d "now -$starttime seconds")
-        rm $TMPDIR/.bash.cmd.start.pid.$$
-    else
-        duration=
-    fi
+        starttime=$(stat --format="%Y" $TMPDIR/.bash.cmd.start.pid.$$ 2>/dev/null)
+        if [[ -n $starttime ]]; then
+            duration=$(date "+%s" -d "now -$starttime seconds")
+            rm $TMPDIR/.bash.cmd.start.pid.$$
+        else
+            duration=
+        fi
 
-    Blue='\e[01;34m'
-    White='\e[01;37m'
-    Red='\e[01;31m'
-    Green='\e[01;32m'
-    Yellow='\e[01;33m'
-    Magenta='\e[01;35m'
-    Cyan='\e[01;36m'
-    Reset='\e[00m'
-    FancyX='\342\234\227'
-    Checkmark='\342\234\223'
+        Blue='\e[01;34m'
+        White='\e[01;37m'
+        Red='\e[01;31m'
+        Green='\e[01;32m'
+        Yellow='\e[01;33m'
+        Magenta='\e[01;35m'
+        Cyan='\e[01;36m'
+        Reset='\e[00m'
+        FancyX='\342\234\227'
+        Checkmark='\342\234\223'
 
-    prompt=""
-    # If last command was successful, print a green check
-    # mark. Otherwise, print a red X.
-    if [[ $Last_Command == 0 ]]; then
-        prompt+="$Green[ $Checkmark "
-    else
-        prompt+="$Red[ $FancyX "
-    fi
+        prompt=""
+        # If last command was successful, print a green check
+        # mark. Otherwise, print a red X.
+        if [[ $Last_Command == 0 ]]; then
+            prompt+="$Green[ $Checkmark "
+        else
+            prompt+="$Red[ $FancyX "
+        fi
 
-    [[ -n $duration ]] && prompt+="$duration\" "
-    prompt+="]"
+        [[ -n $duration ]] && prompt+="$duration\" "
+        prompt+="]"
 
-    # and reset the text color to the default.
-    prompt+="$Reset"
+        # and reset the text color to the default.
+        prompt+="$Reset"
 
-    printf "$prompt"
-}
+        printf "$prompt"
+    }
 
-PROMPT_COMMAND='__git_ps1 "\n\$(set_prompt) \[\e[01;36m\]\u@\h \[\e[01;37m\]\w\[\e[00m\] \[\e[01;33m\]\$(python_virtualenv)\[\e[00m\]" "\n\[\e[01;35m\]❱\[\e[00m\] "'
+    PROMPT_COMMAND='__git_ps1 "\n\$(set_prompt) \[\e[01;36m\]\u@\h \[\e[01;37m\]\w\[\e[00m\] \[\e[01;33m\]\$(python_virtualenv)\[\e[00m\]" "\n\[\e[01;35m\]❱\[\e[00m\] "'
+fi
 
-for d in $HOME/bin $HOME/.go/bin $HOME/dev/minishift ; do
+for d in $HOME/bin $HOME/.go/bin $HOME/dev/minishift; do
     [[ -d $d ]] && export PATH=$PATH:$d
 done
 
@@ -145,19 +147,20 @@ alias smtpclient_test='echo gnutls-cli -V --crlf --starttls some_smtp_mailhub --
 alias smtpclient_test2='echo gnutls-cli --crlf --starttls some_smtp_mailhub --port 587 --insecure'
 alias dockerlogin='echo curl --insecure --user emountain https://dockerhub.wherever:5000/v2/auth'
 
-if [[ -f $HOME/.set-openstack-credentials ]] ; then
-   . $HOME/.set-openstack-credentials
+if [[ -f $HOME/.set-openstack-credentials ]]; then
+    . $HOME/.set-openstack-credentials
 fi
 
 [[ -d ~/.global_npm/bin ]] && export PATH=$PATH:~/.global_npm/bin
 
 function source_docker_env() {
-    local bashrc_dir=$(dirname $(readlink -f ${BASH_SOURCE[0]}))
+    # readlink ${BASH_SOURCE[0]} would be more elegant, however doesn't work when sourcing under zsh
+    local bashrc_dir=$(dirname $(readlink -f ~/.bashrc))
 
-    if grep -q 'NAME="Ubuntu"' /etc/*-release ; then
-        pushd ${bashrc_dir}/../../docker &> /dev/null
+    if grep -q 'NAME="Ubuntu"' /etc/*-release; then
+        pushd ${bashrc_dir}/../../docker &>/dev/null
         . ./env
-        popd &> /dev/null
+        popd &>/dev/null
     fi
 }
 
