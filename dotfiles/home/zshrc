@@ -1,12 +1,15 @@
+#!/usr/bin/zsh
+
 . ~/.bashrc
 
-POWERLEVEL9K_MODE='awesome-fontconfig'
+# POWERLEVEL9K_MODE='awesome-fontconfig'
+POWERLEVEL9K_MODE='awesome-mapped-fontconfig'
 
 #POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs virtualenv)
 #POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status command_execution_time root_indicator background_jobs history)
 
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status command_execution_time context dir vcs virtualenv newline)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(root_indicator background_jobs history)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status command_execution_time context dir vcs virtualenv newline history)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(root_indicator background_jobs time)
 
 POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
 #POWERLEVEL9K_COLOR_SCHEME="light"
