@@ -11,6 +11,16 @@ if [ ! -d ~/.oh-my-zsh/custom/themes/powerlevel9k ] ; then
     git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
 fi
 
+if grep -q 'NAME="Ubuntu"' /etc/os-release ; then
+    if [ ! -d ~/.awesome-terminal-fonts ] ; then
+        git clone https://github.com/gabrielelana/awesome-terminal-fonts ~/.awesome-terminal-fonts
+        cd ~/.awesome-terminal-fonts
+        ./install.sh
+        cd - > /dev/null
+        sed -i 's/PragmataPro/Source Code Pro for Powerline/' ~/.config/fontconfig/conf.d/10-symbols.conf
+    fi
+fi
+
 cd dotfiles/home
 [[ -L ~/.bashrc ]] || ln --backup -s $(pwd)/bashrc ~/.bashrc
 [[ -L ~/.zshrc ]] || ln --backup -s $(pwd)/zshrc ~/.zshrc
