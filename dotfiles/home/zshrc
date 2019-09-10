@@ -3,14 +3,16 @@
 . ~/.bashrc
 
 # Load Awesome fonts
-setopt -o null_glob
-for x in ~/.fonts/*.sh ; do
-    source $x
-done
-setopt +o null_glob
-
-POWERLEVEL9K_MODE='awesome-fontconfig'
-#POWERLEVEL9K_MODE='awesome-mapped-fontconfig'
+if grep -q 'NAME="Ubuntu"' /etc/os-release; then
+    setopt -o null_glob
+    for x in ~/.fonts/*.sh; do
+        source $x
+    done
+    setopt +o null_glob
+    POWERLEVEL9K_MODE='awesome-mapped-fontconfig'
+else
+    POWERLEVEL9K_MODE='awesome-fontconfig'
+fi
 
 # Core prompt setup
 POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
