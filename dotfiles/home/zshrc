@@ -2,28 +2,13 @@
 
 . ~/.bashrc
 
-# POWERLEVEL9K_FORCE_START_OF_ENTRY_FOREGROUND="green"
-# POWERLEVEL9K_FORCE_START_OF_ENTRY_BACKGROUND="black"
-# prompt_force_start_of_entry() {
-#     "$1_prompt_segment" "${0}" "$2" "$DEFAULT_COLOR" "cyan" ">"
-# }
-
 # POWERLEVEL9K_MODE='awesome-fontconfig'
 POWERLEVEL9K_MODE='awesome-mapped-fontconfig'
 
-# POWERLEVEL9K_WHITESPACE_BETWEEN_LEFT_SEGMENTS=""
-
-#POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs virtualenv kubecontext)
-#POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status command_execution_time root_indicator background_jobs history)
-
-# POWERLEVEL9K_DEFAULT_COLOR='red'
-
 # Core prompt setup
 POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs virtualenv status command_execution_time newline history)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs virtualenv kubecontext status command_execution_time newline history)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(root_indicator background_jobs time)
-
-#POWERLEVEL9K_COLOR_SCHEME="light"
 
 # Define segment separators
 # POWERLEVEL9K_LEFT_SEGMENT_SEPARATOR=$'\uE0B1'
@@ -34,16 +19,20 @@ POWERLEVEL9K_LEFT_SUBSEGMENT_SEPARATOR='   '
 # POWERLEVEL9K_LEFT_SEGMENT_END_SEPARATOR=$'\u2771 '
 # POWERLEVEL9K_WHITESPACE_BETWEEN_LEFT_SEGMENTS=' '
 
+# Always show time segment
+# POWERLEVEL9K_COMMAND_EXECUTION_TIME_THRESHOLD=0
+
 # Don't display the status if exit code was 0
-# POWERLEVEL9K_STATUS_OK=false
+POWERLEVEL9K_STATUS_OK=false
 
 # Ensure no space after the "branch" icon
 # POWERLEVEL9K_VCS_BRANCH_ICON=$'\uF126'
 
-# Always show time segment
-POWERLEVEL9K_COMMAND_EXECUTION_TIME_THRESHOLD=0
-
 # Segment colours
+# POWERLEVEL9K_KUBECONTEXT_FOREGROUND="dodgerblue2"
+POWERLEVEL9K_KUBECONTEXT_FOREGROUND="cornsilk1"
+POWERLEVEL9K_KUBECONTEXT_BACKGROUND="black"
+
 POWERLEVEL9K_CONTEXT_DEFAULT_FOREGROUND="aquamarine1"
 POWERLEVEL9K_CONTEXT_DEFAULT_BACKGROUND="black"
 
