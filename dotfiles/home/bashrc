@@ -29,11 +29,10 @@ export HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
-xterm* | rxvt*)
-    PS1="\[\e]0;\u@\h: \w\a\]$PS1"
+    xterm* | rxvt*)
+        PS1="\[\e]0;\u@\h: \w\a\]$PS1"
     ;;
-*) ;;
-
+    *) ;;
 esac
 
 # enable color support of ls and also add handy aliases
@@ -118,7 +117,7 @@ if [ -z "$ZSH_NAME" ]; then
             prompt+="$Red[ $FancyX "
         fi
 
-        [[ -n $duration ]] && prompt+="$duration\" "
+        [[ -n "$duration" ]] && prompt+="$duration"' '
         prompt+="]"
 
         # and reset the text color to the default.
@@ -176,3 +175,7 @@ function source_docker_env() {
 }
 
 source_docker_env
+
+for x in ~/.fonts/*.sh ; do
+    source $x
+done
