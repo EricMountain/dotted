@@ -175,7 +175,3 @@ function source_docker_env() {
 }
 
 source_docker_env
-
-for x in ~/.fonts/*.sh ; do
-    source $x
-done

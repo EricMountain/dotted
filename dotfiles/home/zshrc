@@ -2,8 +2,15 @@
 
 . ~/.bashrc
 
-# POWERLEVEL9K_MODE='awesome-fontconfig'
-POWERLEVEL9K_MODE='awesome-mapped-fontconfig'
+# Load Awesome fonts
+setopt -o null_glob
+for x in ~/.fonts/*.sh ; do
+    source $x
+done
+setopt +o null_glob
+
+POWERLEVEL9K_MODE='awesome-fontconfig'
+#POWERLEVEL9K_MODE='awesome-mapped-fontconfig'
 
 # Core prompt setup
 POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
