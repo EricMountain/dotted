@@ -128,10 +128,21 @@ if [ -z "$ZSH_NAME" ]; then
     }
 
     PROMPT_COMMAND='__git_ps1 "\n\$(set_prompt) \[\e[01;36m\]\u@\h \[\e[01;37m\]\w\[\e[00m\] \[\e[01;33m\]\$(python_virtualenv)\[\e[00m\]" "\n\[\e[01;35m\]❱\[\e[00m\] "'
+
+    if [[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] ; then
+        . /usr/share/bash-completion/bash_completion
+        oc completion bash > /tmp/emountain/bash_completion.sh
+        source /tmp/emountain/bash_completion.sh
+        [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+    fi
 fi
 
-for d in $HOME/bin $HOME/.go/bin $HOME/dev/minishift; do
+for d in $HOME/bin $HOME/dev/minishift ; do
     [[ -d $d ]] && export PATH=$PATH:$d
+done
+
+for d in $HOME/.go/bin ; do
+    [[ -d $d ]] && export PATH=$d:$PATH
 done
 
 [[ -z "$TMPDIR" ]] && export TMPDIR="/tmp/$USER"
