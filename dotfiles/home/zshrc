@@ -2,6 +2,11 @@
 
 . ~/.bashrc
 
+# Todo:
+# completion
+# shorten kube context
+# ls hyperlinks
+
 # Load Awesome fonts
 if grep -q 'NAME="Ubuntu"' /etc/os-release; then
     setopt -o null_glob
