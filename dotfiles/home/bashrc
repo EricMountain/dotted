@@ -147,7 +147,7 @@ done
 [[ -z "$TMPDIR" ]] && export TMPDIR="/tmp/$USER"
 [[ ! -d "$TMPDIR" ]] && mkdir -m 700 "$TMPDIR" && export TMPDIR="/tmp/$USER"
 
-alias gl='git log --graph --decorate --date=relative --format="%C(yellow)%h%C(reset) %C(green)%cr%Creset %s%C(bold red)%d%C(white) [%aN]%C(reset)"'
+alias gls='git log --graph --decorate --date=relative --format="%C(yellow)%h%C(reset) %C(green)%cr%Creset %s%C(bold red)%d%C(white) [%aN]%C(reset)"'
 alias gla='git log --graph --decorate --date=relative --format="%C(yellow)%h%C(reset) %C(green)%cr%Creset %s%C(bold red)%d%C(white) [%aN]%C(reset)" --all'
 alias gv='git describe --tags --always --dirty'
 alias grel='git log $1^..$2 --pretty=oneline --graph --decorate --no-merges'
