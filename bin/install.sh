@@ -21,6 +21,11 @@ if grep -q 'NAME="Ubuntu"' /etc/os-release ; then
     fi
 fi
 
+if [ ! -d ~/.fzf ] ; then
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+    ~/.fzf/install --key-bindings --completion --no-update-rc
+fi
+
 cd dotfiles/home
 [[ -L ~/.bashrc ]] || ln --backup -s $(pwd)/bashrc ~/.bashrc
 [[ -L ~/.zshrc ]] || ln --backup -s $(pwd)/zshrc ~/.zshrc
