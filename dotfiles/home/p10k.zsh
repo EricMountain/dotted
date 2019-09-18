@@ -38,7 +38,6 @@ fi
       context
       dir                     # current directory
       vcs                     # git status
-      virtualenv
       status
       command_execution_time
       # =========================[ Line #2 ]=========================
@@ -56,7 +55,7 @@ fi
       # status                  # exit code of the last command
       # command_execution_time  # duration of the last command
       background_jobs         # presence of background jobs
-      # virtualenv              # python virtual environment (https://docs.python.org/3/library/venv.html)
+      virtualenv              # python virtual environment (https://docs.python.org/3/library/venv.html)
       # anaconda                # conda environment (https://conda.io/)
       pyenv                   # python environment (https://github.com/pyenv/pyenv)
       # nodenv                  # node.js version from nodenv (https://github.com/nodenv/nodenv)
@@ -299,14 +298,10 @@ fi
   #
   # typeset -g POWERLEVEL9K_DIR_CLASSES=()
 
-  typeset -g POWERLEVEL9K_DIR_HOME_FOREGROUND="chartreuse1"
-  typeset -g POWERLEVEL9K_DIR_HOME_BACKGROUND="black"
-  typeset -g POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND="chartreuse1"
-  typeset -g POWERLEVEL9K_DIR_HOME_SUBFOLDER_BACKGROUND="black"
+  typeset -g POWERLEVEL9K_DIR_HOME_FOREGROUND="cornflowerblue"
+  typeset -g POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND="cornflowerblue"
   typeset -g POWERLEVEL9K_DIR_DEFAULT_FOREGROUND="149"
-  typeset -g POWERLEVEL9K_DIR_DEFAULT_BACKGROUND="black"
   typeset -g POWERLEVEL9K_DIR_ETC_FOREGROUND="lightsteelblue"
-  typeset -g POWERLEVEL9K_DIR_ETC_BACKGROUND="black"
 
   #####################################[ vcs: git status ]######################################
   # Branch icon. Set this parameter to '\uF126 ' for the popular Powerline branch icon.
@@ -404,29 +399,31 @@ fi
   # Status when some part of a pipe command fails but the overall exit status is zero. It may look
   # like this: 1|0.
   typeset -g POWERLEVEL9K_STATUS_OK_PIPE=true
-  typeset -g POWERLEVEL9K_STATUS_OK_PIPE_FOREGROUND=70
+  # typeset -g POWERLEVEL9K_STATUS_OK_PIPE_FOREGROUND=70
+  typeset -g POWERLEVEL9K_STATUS_OK_PIPE_FOREGROUND=yellow1
+  typeset -g POWERLEVEL9K_STATUS_OK_PIPE_BACKGROUND=red
   typeset -g POWERLEVEL9K_STATUS_OK_PIPE_VISUAL_IDENTIFIER_EXPANSION='✔'
 
   # Status when it's just an error code (e.g., '1'). No need to show it if prompt_char is enabled as
   # it will signify error by turning red.
-  typeset -g POWERLEVEL9K_STATUS_ERROR=false
+  typeset -g POWERLEVEL9K_STATUS_ERROR=true
   typeset -g POWERLEVEL9K_STATUS_ERROR_FOREGROUND=yellow1
   typeset -g POWERLEVEL9K_STATUS_ERROR_BACKGROUND=red
-  # red
-  # yellow1
   typeset -g POWERLEVEL9K_STATUS_ERROR_VISUAL_IDENTIFIER_EXPANSION='↵'
 
   # Status when the last command was terminated by a signal.
   typeset -g POWERLEVEL9K_STATUS_ERROR_SIGNAL=true
-  typeset -g POWERLEVEL9K_STATUS_ERROR_SIGNAL_FOREGROUND=160
+  typeset -g POWERLEVEL9K_STATUS_ERROR_SIGNAL_FOREGROUND=yellow1
+  typeset -g POWERLEVEL9K_STATUS_ERROR_SIGNAL_BACKGROUND=red
   # Use terse signal names: "INT" instead of "SIGINT(2)".
-  typeset -g POWERLEVEL9K_STATUS_VERBOSE_SIGNAME=true
+  typeset -g POWERLEVEL9K_STATUS_VERBOSE_SIGNAME=false
   typeset -g POWERLEVEL9K_STATUS_ERROR_SIGNAL_VISUAL_IDENTIFIER_EXPANSION='↵'
 
   # Status when some part of a pipe command fails and the overall exit status is also non-zero.
   # It may look like this: 1|0.
   typeset -g POWERLEVEL9K_STATUS_ERROR_PIPE=true
-  typeset -g POWERLEVEL9K_STATUS_ERROR_PIPE_FOREGROUND=160
+  typeset -g POWERLEVEL9K_STATUS_ERROR_PIPE_FOREGROUND=yellow1
+  typeset -g POWERLEVEL9K_STATUS_ERROR_PIPE_BACKGROUND=red
   typeset -g POWERLEVEL9K_STATUS_ERROR_PIPE_VISUAL_IDENTIFIER_EXPANSION='↵'
 
   ###################[ command_execution_time: duration of the last command ]###################
@@ -731,7 +728,6 @@ fi
 
   #########################################[ context ]#########################################
   typeset -g POWERLEVEL9K_CONTEXT_DEFAULT_FOREGROUND="aquamarine1"
-  typeset -g POWERLEVEL9K_CONTEXT_DEFAULT_CONTENT_EXPANSION="%m"
 
   ####################################[ custom segment example ]###############################
   # Example of a user-defined prompt segment. Function prompt_example will be called on every
