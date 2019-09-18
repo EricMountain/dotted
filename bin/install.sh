@@ -19,6 +19,11 @@ if grep -q 'NAME="Ubuntu"' /etc/os-release ; then
         cd - > /dev/null
         sed -i 's/PragmataPro/Source Code Pro for Powerline/' ~/.config/fontconfig/conf.d/10-symbols.conf
     fi
+    sudo apt-get install ranger
+fi
+
+if grep -q 'NAME="ArchLinux"' /etc/os-release ; then
+    pacman -S ranger nerd-fonts-hack
 fi
 
 if [ ! -d ~/.fzf ] ; then
