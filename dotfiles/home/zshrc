@@ -15,8 +15,8 @@ if grep -q 'NAME="Ubuntu"' /etc/os-release; then
     done
     setopt +o null_glob
     # POWERLEVEL9K_MODE='awesome-mapped-fontconfig'
-else
-    POWERLEVEL9K_MODE='awesome-fontconfig'
+# else
+#     POWERLEVEL9K_MODE='awesome-fontconfig'
 fi
 
 # Path to your oh-my-zsh installation.
@@ -31,6 +31,8 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 
 ## FIXME TODO
 source ~/.dotted/dotfiles/home/p10k.zsh
+
+# Oh-my-zsh customisation
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
