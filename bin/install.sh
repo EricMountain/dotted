@@ -23,7 +23,8 @@ if grep -q 'NAME="Ubuntu"' /etc/os-release ; then
 fi
 
 if grep -q 'NAME="Arch Linux"' /etc/os-release ; then
-    sudo pacman -S ranger nerd-fonts-hack
+    # TODO nerd-fonts-hack doesn't exist, where to get it?
+    sudo pacman -S ranger
 fi
 
 if [ ! -d ~/.fzf ] ; then
