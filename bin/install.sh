@@ -22,7 +22,7 @@ if grep -q 'NAME="Ubuntu"' /etc/os-release ; then
     sudo apt-get install ranger
 fi
 
-if grep -q 'NAME="ArchLinux"' /etc/os-release ; then
+if grep -q 'NAME="Arch Linux"' /etc/os-release ; then
     pacman -S ranger nerd-fonts-hack
 fi
 
