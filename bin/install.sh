@@ -23,7 +23,7 @@ if grep -q 'NAME="Ubuntu"' /etc/os-release ; then
 fi
 
 if grep -q 'NAME="Arch Linux"' /etc/os-release ; then
-    pacman -S ranger nerd-fonts-hack
+    sudo pacman -S ranger nerd-fonts-hack
 fi
 
 if [ ! -d ~/.fzf ] ; then
