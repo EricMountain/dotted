@@ -130,8 +130,9 @@ if [ -z "$ZSH_NAME" ]; then
 
     if [[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] ; then
         . /usr/share/bash-completion/bash_completion
-        oc completion bash > /tmp/emountain/bash_completion.sh
-        source /tmp/emountain/bash_completion.sh
+        if oc completion bash > /tmp/emountain/bash_completion.sh 2> /dev/null ; then
+            source /tmp/emountain/bash_completion.sh
+        fi
         [ -f ~/.fzf.bash ] && source ~/.fzf.bash
     fi
 fi
