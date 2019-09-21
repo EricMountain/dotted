@@ -3,31 +3,39 @@
 set -euo pipefail
 
 # These should have code reviews before installing really...
-if [ ! -d ~/.oh-my-zsh ] ; then
+if [ ! -d ~/.oh-my-zsh ]; then
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 fi
 
-if [ ! -d ~/.oh-my-zsh/custom/themes/powerlevel10k ] ; then
+if [ ! -d ~/.oh-my-zsh/custom/themes/powerlevel10k ]; then
     git clone --depth 1 https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
 fi
 
-if grep -q 'NAME="Ubuntu"' /etc/os-release ; then
-    if [ ! -d ~/.awesome-terminal-fonts ] ; then
+if grep -q 'NAME="Ubuntu"' /etc/os-release; then
+    if [ ! -d ~/.awesome-terminal-fonts ]; then
         git clone --depth 1 https://github.com/gabrielelana/awesome-terminal-fonts ~/.awesome-terminal-fonts
         cd ~/.awesome-terminal-fonts
         ./install.sh
-        cd - > /dev/null
+        cd - >/dev/null
         sed -i 's/PragmataPro/Source Code Pro for Powerline/' ~/.config/fontconfig/conf.d/10-symbols.conf
     fi
     sudo apt-get install ranger
-fi
-
-if grep -q 'NAME="Arch Linux"' /etc/os-release ; then
-    # TODO nerd-fonts-hack doesn't exist, where to get it?
+elif grep -q 'NAME="Arch Linux"' /etc/os-release; then
     sudo pacman -S ranger
+
+    [[ -d ~/.local/share/fonts ]] || mkdir ~/.local/share/fonts
+    v=v2.0.0
+    for f in Sauce%20Code%20Pro%20Medium%20Nerd%20Font%20Complete%20Mono.ttf \
+        Sauce%20Code%20Pro%20Medium%20Nerd%20Font%20Complete.ttf; do
+        (
+            fn=$(echo $f | sed 's/%20/ /g')
+            cd ~/.fonts &&
+                curl -o $fn "https://github.com/ryanoasis/nerd-fonts/blob/${v}/patched-fonts/SourceCodePro/Medium/complete/${f}"
+        )
+    done
 fi
 
-if [ ! -d ~/.fzf ] ; then
+if [ ! -d ~/.fzf ]; then
     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
     ~/.fzf/install --key-bindings --completion --no-update-rc
 fi
