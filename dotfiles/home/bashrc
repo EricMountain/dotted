@@ -51,6 +51,9 @@ umask 0002
 
 export EDITOR=vim
 
+[[ -z "$TMPDIR" ]] && export TMPDIR="/tmp/$USER"
+[[ ! -d "$TMPDIR" ]] && mkdir -m 700 "$TMPDIR" && export TMPDIR="/tmp/$USER"
+
 if [ -z "$ZSH_NAME" ]; then
     # Git prompt configuration
 
@@ -130,9 +133,12 @@ if [ -z "$ZSH_NAME" ]; then
 
     if [[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] ; then
         . /usr/share/bash-completion/bash_completion
-        if oc completion bash > /tmp/emountain/bash_completion.sh 2> /dev/null ; then
-            source /tmp/emountain/bash_completion.sh
+
+        if oc completion bash > $TMPDIR/bash_completion.sh 2> /dev/null ; then
+            source $TMPDIR/bash_completion.sh
+            rm $TMPDIR/bash_completion.sh
         fi
+
         [ -f ~/.fzf.bash ] && source ~/.fzf.bash
     fi
 fi
@@ -144,9 +150,6 @@ done
 for d in $HOME/.go/bin ; do
     [[ -d $d ]] && export PATH=$d:$PATH
 done
-
-[[ -z "$TMPDIR" ]] && export TMPDIR="/tmp/$USER"
-[[ ! -d "$TMPDIR" ]] && mkdir -m 700 "$TMPDIR" && export TMPDIR="/tmp/$USER"
 
 alias gls='git log --graph --decorate --date=relative --format="%C(yellow)%h%C(reset) %C(green)%cr%Creset %s%C(bold red)%d%C(white) [%aN]%C(reset)"'
 alias gla='git log --graph --decorate --date=relative --format="%C(yellow)%h%C(reset) %C(green)%cr%Creset %s%C(bold red)%d%C(white) [%aN]%C(reset)" --all'
