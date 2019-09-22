@@ -140,7 +140,8 @@ fi
   if grep -q 'NAME="Ubuntu"' /etc/os-release; then
     typeset -g POWERLEVEL9K_MODE=awesome-mapped-fontconfig
   elif grep -q 'NAME="Arch Linux"' /etc/os-release; then
-    typeset -g POWERLEVEL9K_MODE=awesome-fontconfig
+    typeset -g POWERLEVEL9K_MODE=awesome-mapped-fontconfig
+    #typeset -g POWERLEVEL9K_MODE=awesome-fontconfig
   else
     echo Need to set POWERLEVEL9K_MODE.
   fi

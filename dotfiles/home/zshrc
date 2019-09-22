@@ -2,19 +2,24 @@
 
 # Todo:
 # ls hyperlinks
-# fonts on Arch
 
 # bash #####################################################################
 . ~/.bashrc
 
 # Load Awesome fonts #######################################################
 if grep -q 'NAME="Ubuntu"' /etc/os-release; then
-    setopt -o null_glob
-    for x in ~/.fonts/*.sh; do
-        source $x
-    done
-    setopt +o null_glob
+	FONT_DIR=~/.fonts
+elif grep -q 'NAME="Arch Linux"' /etc/os-release; then
+	FONT_DIR=~/.local/share/fonts
 fi
+
+setopt -o null_glob
+for x in $(find ${FONT_DIR} -name \*.sh); do
+	source $x
+done
+setopt +o null_glob
+
+FONT_DIR=
 
 # Oh-my-zsh ################################################################
 
@@ -53,11 +58,11 @@ alias gl='git pull --ff-only'
 # Ctrl-O opens zsh at the current location, and on exit, cd into ranger's last location.
 ranger-cd() {
 	tempfile=$(mktemp)
-	ranger --choosedir="$tempfile" "${@:-$(pwd)}" < $TTY
+	ranger --choosedir="$tempfile" "${@:-$(pwd)}" <$TTY
 	test -f "$tempfile" &&
-	if [ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]; then
-	    cd -- "$(cat "$tempfile")"
-	fi
+		if [ "$(cat -- "$tempfile")" != "$(echo -n $(pwd))" ]; then
+			cd -- "$(cat "$tempfile")"
+		fi
 	rm -f -- "$tempfile"
 	# hacky way of transferring over previous command and updating the screen
 	VISUAL=true zle edit-command-line
@@ -70,4 +75,4 @@ vscode-current-directory() {
 	code .
 }
 zle -N vscode-current-directory
-bindkey '^O' vscode-current-directory
+bindkey '^v' vscode-current-directory
