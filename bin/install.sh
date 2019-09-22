@@ -23,14 +23,14 @@ if grep -q 'NAME="Ubuntu"' /etc/os-release; then
 elif grep -q 'NAME="Arch Linux"' /etc/os-release; then
     sudo pacman -S ranger
 
-    [[ -d ~/.local/share/fonts ]] || mkdir ~/.local/share/fonts
+    [[ -d ~/.local/share/fonts/S ]] || mkdir -p ~/.local/share/fonts/S
     v=v2.0.0
     for f in Sauce%20Code%20Pro%20Medium%20Nerd%20Font%20Complete%20Mono.ttf \
         Sauce%20Code%20Pro%20Medium%20Nerd%20Font%20Complete.ttf; do
         (
             fn=$(echo $f | sed 's/%20/ /g')
-            cd ~/.fonts &&
-                curl -o $fn "https://github.com/ryanoasis/nerd-fonts/blob/${v}/patched-fonts/SourceCodePro/Medium/complete/${f}"
+            cd ~/.local/share/fonts/S &&
+                curl -Lo $fn "https://github.com/ryanoasis/nerd-fonts/raw/${v}/patched-fonts/SourceCodePro/Medium/complete/${f}"
         )
     done
 fi
