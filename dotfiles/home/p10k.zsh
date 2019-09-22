@@ -312,12 +312,26 @@ fi
 
   #####################################[ vcs: git status ]######################################
   # Branch icon. Set this parameter to '\uF126 ' for the popular Powerline branch icon.
-  # typeset -g POWERLEVEL9K_VCS_BRANCH_ICON='\uf322 '
-  typeset -g POWERLEVEL9K_VCS_BRANCH_ICON='\uF126 '
+  #typeset -g POWERLEVEL9K_VCS_BRANCH_ICON='\uf322 '
+  #typeset -g POWERLEVEL9K_VCS_BRANCH_ICON='\uF126 '
 
-  # Untracked files icon. It's really a question mark, your font isn't broken.
-  # Change the value of this parameter to show a different icon.
-  typeset -g POWERLEVEL9K_VCS_UNTRACKED_ICON='\uf059 '
+  #typeset -g POWERLEVEL9K_VCS_UNTRACKED_ICON='\uf059 '
+  typeset -g POWERLEVEL9K_VCS_UNTRACKED_ICON='\u'$CODEPOINT_OF_AWESOME_QUESTION_CIRCLE' '
+  typeset -g POWERLEVEL9K_VCS_UNSTAGED_ICON="\u${CODEPOINT_OF_AWESOME_EXCLAMATION_TRIANGLE} "
+  typeset -g POWERLEVEL9K_VCS_STAGED_ICON="\u${CODEPOINT_OF_AWESOME_PLUS_CIRCLE} "
+  typeset -g POWERLEVEL9K_VCS_STASH_ICON='\u'$CODEPOINT_OF_AWESOME_INBOX' '
+  #typeset -g POWERLEVEL9K_VCS_INCOMING_CHANGES_ICON='\u'$CODEPOINT_OF_AWESOME_ARROW_CIRCLE_DOWN' '
+  #typeset -g POWERLEVEL9K_VCS_OUTGOING_CHANGES_ICON='\u'$CODEPOINT_OF_AWESOME_ARROW_CIRCLE_UP' '
+  typeset -g POWERLEVEL9K_VCS_TAG_ICON='\u'$CODEPOINT_OF_AWESOME_TAG' '
+  typeset -g POWERLEVEL9K_VCS_BOOKMARK_ICON='\u'$CODEPOINT_OF_OCTICONS_BOOKMARK
+  typeset -g POWERLEVEL9K_VCS_COMMIT_ICON='\u'$CODEPOINT_OF_OCTICONS_GIT_COMMIT' '
+  typeset -g POWERLEVEL9K_VCS_BRANCH_ICON='\u'$CODEPOINT_OF_OCTICONS_GIT_BRANCH' '
+  #typeset -g POWERLEVEL9K_VCS_REMOTE_BRANCH_ICON='\u'$CODEPOINT_OF_OCTICONS_REPO_PUSH' '
+  typeset -g POWERLEVEL9K_VCS_GIT_ICON='\u'$CODEPOINT_OF_AWESOME_GIT' '
+  typeset -g POWERLEVEL9K_VCS_GIT_GITHUB_ICON='\u'$CODEPOINT_OF_AWESOME_GITHUB_ALT' '
+  typeset -g POWERLEVEL9K_VCS_GIT_BITBUCKET_ICON='\u'$CODEPOINT_OF_AWESOME_BITBUCKET' '
+  typeset -g POWERLEVEL9K_VCS_GIT_GITLAB_ICON='\u'$CODEPOINT_OF_AWESOME_GITLAB' '
+  typeset -g POWERLEVEL9K_VCS_HG_ICON='\u'$CODEPOINT_OF_AWESOME_FLASK' '
 
   # Git status: feature:master#tag ⇣42⇡42 *42 merge ~42 +42 !42 ?42.
   #
@@ -335,26 +349,26 @@ fi
   # POWERLEVEL9K_VCS_SHORTEN_LENGTH=12 with POWERLEVEL9K_VCS_SHORTEN_STRATEGY=truncate_middle.
   vcs+=':-${VCS_STATUS_LOCAL_BRANCH[1,12]//\%/%%}%28F…%76F${VCS_STATUS_LOCAL_BRANCH[-12,-1]//\%/%%}}}'
   # '@72f5c8a' if not on a branch.
-  vcs+=':-%f@%76F${VCS_STATUS_COMMIT[1,8]}}'
+  vcs+=':-%f'${(g::)POWERLEVEL9K_VCS_COMMIT_ICON}'%76F${VCS_STATUS_COMMIT[1,8]}}'
   # ':master' if the tracking branch name differs from local branch.
   vcs+='${${VCS_STATUS_REMOTE_BRANCH:#$VCS_STATUS_LOCAL_BRANCH}:+%f:%76F${VCS_STATUS_REMOTE_BRANCH//\%/%%}}'
   # '#tag' if on a tag.
-  vcs+='${VCS_STATUS_TAG:+%f#%76F${VCS_STATUS_TAG//\%/%%}}'
+  vcs+='${VCS_STATUS_TAG:+%f'${(g::)POWERLEVEL9K_VCS_TAG_ICON}'%76F${VCS_STATUS_TAG//\%/%%}}'
   # ⇣42 if behind the remote.
   vcs+='${${VCS_STATUS_COMMITS_BEHIND:#0}:+ %76F⇣${VCS_STATUS_COMMITS_BEHIND}}'
   # ⇡42 if ahead of the remote; no leading space if also behind the remote: ⇣42⇡42.
   # If you want '⇣42 ⇡42' instead, replace '${${(M)VCS_STATUS_COMMITS_BEHIND:#0}:+ }' with ' '.
   vcs+='${${VCS_STATUS_COMMITS_AHEAD:#0}:+${${(M)VCS_STATUS_COMMITS_BEHIND:#0}:+ }%76F⇡${VCS_STATUS_COMMITS_AHEAD}}'
   # *42 if have stashes.
-  vcs+='${${VCS_STATUS_STASHES:#0}:+ %76F*${VCS_STATUS_STASHES}}'
+  vcs+='${${VCS_STATUS_STASHES:#0}:+ %76F'${(g::)POWERLEVEL9K_VCS_STASH_ICON}'${VCS_STATUS_STASHES}}'
   # 'merge' if the repo is in an unusual state.
   vcs+='${VCS_STATUS_ACTION:+ %196F${VCS_STATUS_ACTION//\%/%%}}'
   # ~42 if have merge conflicts.
   vcs+='${${VCS_STATUS_NUM_CONFLICTED:#0}:+ %196F~${VCS_STATUS_NUM_CONFLICTED}}'
   # +42 if have staged changes.
-  vcs+='${${VCS_STATUS_NUM_STAGED:#0}:+ %178F+${VCS_STATUS_NUM_STAGED}}'
+  vcs+='${${VCS_STATUS_NUM_STAGED:#0}:+ %178F'${(g::)POWERLEVEL9K_VCS_STAGED_ICON}'${VCS_STATUS_NUM_STAGED}}'
   # !42 if have unstaged changes.
-  vcs+='${${VCS_STATUS_NUM_UNSTAGED:#0}:+ %178F!${VCS_STATUS_NUM_UNSTAGED}}'
+  vcs+='${${VCS_STATUS_NUM_UNSTAGED:#0}:+ %178F'${(g::)POWERLEVEL9K_VCS_UNSTAGED_ICON}'${VCS_STATUS_NUM_UNSTAGED}}'
   # ?42 if have untracked files. It's really a question mark, your font isn't broken.
   # See POWERLEVEL9K_VCS_UNTRACKED_ICON above if you want to use a different icon.
   # Remove the next line if you don't want to see untracked files at all.
