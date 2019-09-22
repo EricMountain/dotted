@@ -39,7 +39,8 @@ if [ ! -d ~/.awesome-terminal-fonts ]; then
     sed 's/PragmataPro/Cascadia Code/' ~/.config/fontconfig/conf.d/10-symbols.conf >~/.config/fontconfig/conf.d/10-symbols-cascadia.conf
 fi
 
-# Nerd fonts
+# Nerd fonts (not used: doesn't look as good as the Source Code Pro for
+# Powerline font from system packages on Arch)
 [[ -d ${FONT_DIR}/S ]] || mkdir -p ${FONT_DIR}/S
 v=v2.0.0
 for f in Sauce%20Code%20Pro%20Medium%20Nerd%20Font%20Complete%20Mono.ttf \
