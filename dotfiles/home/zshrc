@@ -8,14 +8,14 @@
 
 # Load Awesome fonts #######################################################
 if grep -q 'NAME="Ubuntu"' /etc/os-release; then
-	FONT_DIR=~/.fonts
-elif grep -q 'NAME="Arch Linux"' /etc/os-release; then
-	FONT_DIR=~/.local/share/fonts
+    FONT_DIR=~/.fonts
+    elif grep -q 'NAME="Arch Linux"' /etc/os-release; then
+    FONT_DIR=~/.local/share/fonts
 fi
 
 setopt -o null_glob
 for x in $(find ${FONT_DIR} -name \*.sh); do
-	source $x
+    source $x
 done
 setopt +o null_glob
 
@@ -57,22 +57,26 @@ alias gl='git pull --ff-only'
 # From https://gist.github.com/android10/3a061b3a85ad9fd6832ae25efc4381b0
 # Ctrl-O opens zsh at the current location, and on exit, cd into ranger's last location.
 ranger-cd() {
-	tempfile=$(mktemp)
-	ranger --choosedir="$tempfile" "${@:-$(pwd)}" <$TTY
-	test -f "$tempfile" &&
-		if [ "$(cat -- "$tempfile")" != "$(echo -n $(pwd))" ]; then
-			cd -- "$(cat "$tempfile")"
-		fi
-	rm -f -- "$tempfile"
-	# hacky way of transferring over previous command and updating the screen
-	VISUAL=true zle edit-command-line
+    tempfile=$(mktemp)
+    ranger --choosedir="$tempfile" "${@:-$(pwd)}" <$TTY
+    test -f "$tempfile" &&
+    if [ "$(cat -- "$tempfile")" != "$(echo -n $(pwd))" ]; then
+        cd -- "$(cat "$tempfile")"
+    fi
+    rm -f -- "$tempfile"
+    # hacky way of transferring over previous command and updating the screen
+    VISUAL=true zle edit-command-line
 }
 zle -N ranger-cd
 bindkey '^o' ranger-cd
 
 # VSCode ###################################################################
 vscode-current-directory() {
-	code .
+    if which code-insiders > /dev/null ; then
+        code-insiders .
+    else
+        code .
+    fi
 }
 zle -N vscode-current-directory
 bindkey '^v' vscode-current-directory
