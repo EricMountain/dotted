@@ -49,6 +49,7 @@ source $ZSH/oh-my-zsh.sh
 
 # alias overrides ##########################################################
 alias gl='git pull --ff-only'
+alias gpo='git push -u origin "$(git_current_branch)"'
 
 # Fuzzy filtering ##########################################################
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
