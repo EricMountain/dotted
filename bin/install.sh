@@ -3,13 +3,11 @@
 set -euo pipefail
 
 # Pre-reqs and settings ####################################################
+FONT_DIR=~/.local/share/fonts
+
 if grep -q 'NAME="Ubuntu"' /etc/os-release; then
-    FONT_DIR=~/.fonts
-
     sudo apt-get install ranger
-elif grep -q 'NAME="Arch Linux"' /etc/os-release; then
-    FONT_DIR=~/.local/share/fonts
-
+    elif grep -q 'NAME="Arch Linux"' /etc/os-release; then
     sudo pacman -S ranger
 fi
 
@@ -43,12 +41,13 @@ fi
 # Powerline font from system packages on Arch)
 [[ -d ${FONT_DIR}/S ]] || mkdir -p ${FONT_DIR}/S
 v=v2.0.0
-for f in Sauce%20Code%20Pro%20Medium%20Nerd%20Font%20Complete%20Mono.ttf \
-    Sauce%20Code%20Pro%20Medium%20Nerd%20Font%20Complete.ttf; do
+for f in Sauce%20Code%20Pro%20Medium%20Nerd%20Font%20Complete%20Mono.ttf Sauce%20Code%20Pro%20Medium%20Nerd%20Font%20Complete.ttf; do
     (
         fn=$(echo $f | sed 's/%20/ /g')
-        cd ${FONT_DIR}/S &&
-            curl -Lo $fn "https://github.com/ryanoasis/nerd-fonts/raw/${v}/patched-fonts/SourceCodePro/Medium/complete/${f}"
+        cd ${FONT_DIR}/S
+        if [[ ! -e "${fn}" ]] ; then
+            curl -Lo "${fn}" "https://github.com/ryanoasis/nerd-fonts/raw/${v}/patched-fonts/SourceCodePro/Medium/complete/${f}"
+        fi
     )
 done
 
@@ -72,3 +71,4 @@ cd dotfiles/home
 [[ -L ~/.p10k.zsh ]] || ln --backup -s $(pwd)/p10k.zsh ~/.p10k.zsh
 [[ -L ~/.emacs ]] || ln --backup -s $(pwd)/emacs ~/.emacs
 [[ -L ~/.pam_environment ]] || ln --backup -s $(pwd)/pam_environment ~/.pam_environment
+[[ -L ~/.toprc ]] || ln --backup -s $(pwd)/toprc ~/.toprc
