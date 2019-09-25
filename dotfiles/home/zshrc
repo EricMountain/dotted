@@ -81,3 +81,11 @@ vscode-current-directory() {
 }
 zle -N vscode-current-directory
 bindkey '^v' vscode-current-directory
+
+# Completion ################################################################
+for x in oc kubectl ; do
+    if $x completion zsh > $TMPDIR/zsh_completion.sh 2> /dev/null ; then
+        source $TMPDIR/zsh_completion.sh
+        rm $TMPDIR/zsh_completion.sh
+    fi
+done
