@@ -26,13 +26,9 @@ FONT_DIR=
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
-## FIXME TODO - make this install-location independent
 source ~/.p10k.zsh
 
 # Uncomment the following line if pasting URLs and other text is messed up.
@@ -82,7 +78,7 @@ vscode-current-directory() {
 zle -N vscode-current-directory
 bindkey '^v' vscode-current-directory
 
-# Completion ################################################################
+# Completion ###############################################################
 for x in oc kubectl ; do
     if $x completion zsh > $TMPDIR/zsh_completion.sh 2> /dev/null ; then
         source $TMPDIR/zsh_completion.sh
