@@ -85,3 +85,10 @@ for x in oc kubectl ; do
         rm $TMPDIR/zsh_completion.sh
     fi
 done
+
+# Kube Config ##############################################################
+export KUBECONFIG="$(mktemp $TMPDIR/.kube.XXXXXXXXX)"
+kubeconfig-zshexit-hook() {
+    rm -f $KUBECONFIG
+}
+zshexit_functions+=( kubeconfig-zshexit-hook )
