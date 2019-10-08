@@ -3,16 +3,45 @@
 # Todo:
 # ls hyperlinks
 
+# OS detection ################################################################
+if grep -q 'NAME="Ubuntu"' /etc/os-release 2> /dev/null ; then
+    OS_CLASS=Linux
+    OS_DIST=Ubuntu
+elif grep -q 'NAME="Arch Linux"' /etc/os-release 2> /dev/null ; then
+    OS_CLASS=Linux
+    OS_DIST=ArchLinux
+elif [ "$(uname)" = "Darwin" ]; then
+    OS_CLASS=Darwin
+    OS_DIST=Apple
+else
+    echo Unknown OS/distribution.
+    exit 1
+fi
+
+case ${OS_CLASS} in
+    Linux)
+    FONT_DIR=~/.local/share/fonts
+    ;;
+    Darwin)
+    export PATH="/usr/local/opt/coreutils/libexec/gnubin:/usr/local/opt/findutils/libexec/gnubin:/usr/local/opt/gnu-sed/libexec/gnubin:/usr/local/bin:$PATH:$HOME/go/src/github.com/DataDog/devtools/bin"
+    FONT_DIR=~/Library/Fonts
+    ;;
+esac
+[[ -d ${FONT_DIR} ]] || mkdir -p ${FONT_DIR}
+
+# Specific pre-stuff #######################################################
+if [ -d ~/.local-config.d ] ; then
+    setopt -o null_glob
+    for x in $(find ~/.local-config.d -name \*.zsh); do
+        source $x
+    done
+    setopt +o null_glob
+fi
+
 # bash #####################################################################
 . ~/.bashrc
 
 # Load Awesome fonts #######################################################
-if grep -q 'NAME="Ubuntu"' /etc/os-release; then
-    FONT_DIR=~/.fonts
-    elif grep -q 'NAME="Arch Linux"' /etc/os-release; then
-    FONT_DIR=~/.local/share/fonts
-fi
-
 setopt -o null_glob
 for x in $(find ${FONT_DIR} -name \*.sh); do
     source $x

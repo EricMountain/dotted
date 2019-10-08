@@ -137,11 +137,13 @@ fi
   # POWERLEVEL9K_MODE=compatible, or install the recommended Powerlevel10k font from
   # https://github.com/romkatv/powerlevel10k/#recommended-meslo-nerd-font-patched-for-powerlevel10k
   # and set POWERLEVEL9K_MODE=nerdfont-complete.
-  if grep -q 'NAME="Ubuntu"' /etc/os-release; then
+  if [ ${OS_DIST} = "Ubuntu" ] ; then
     typeset -g POWERLEVEL9K_MODE=awesome-mapped-fontconfig
-  elif grep -q 'NAME="Arch Linux"' /etc/os-release; then
+  elif [ ${OS_DIST} = "ArchLinux" ]; then
     typeset -g POWERLEVEL9K_MODE=awesome-mapped-fontconfig
     #typeset -g POWERLEVEL9K_MODE=awesome-fontconfig
+  elif [ ${OS_DIST} = "Apple" ] ; then
+    typeset -g POWERLEVEL9K_MODE=awesome-mapped-fontconfig
   else
     echo Need to set POWERLEVEL9K_MODE.
   fi
@@ -313,7 +315,7 @@ fi
   #####################################[ vcs: git status ]######################################
   # Branch icon. Set this parameter to '\uF126 ' for the popular Powerline branch icon.
   #typeset -g POWERLEVEL9K_VCS_BRANCH_ICON='\uf322 '
-  #typeset -g POWERLEVEL9K_VCS_BRANCH_ICON='\uF126 '
+  typeset -g POWERLEVEL9K_VCS_BRANCH_ICON='\uF126 '
 
   #typeset -g POWERLEVEL9K_VCS_UNTRACKED_ICON='\uf059 '
   typeset -g POWERLEVEL9K_VCS_UNTRACKED_ICON='\u'$CODEPOINT_OF_AWESOME_QUESTION_CIRCLE' '
@@ -325,7 +327,7 @@ fi
   typeset -g POWERLEVEL9K_VCS_TAG_ICON='\u'$CODEPOINT_OF_AWESOME_TAG' '
   typeset -g POWERLEVEL9K_VCS_BOOKMARK_ICON='\u'$CODEPOINT_OF_OCTICONS_BOOKMARK
   typeset -g POWERLEVEL9K_VCS_COMMIT_ICON='\u'$CODEPOINT_OF_OCTICONS_GIT_COMMIT' '
-  typeset -g POWERLEVEL9K_VCS_BRANCH_ICON='\u'$CODEPOINT_OF_OCTICONS_GIT_BRANCH' '
+  #typeset -g POWERLEVEL9K_VCS_BRANCH_ICON='\u'$CODEPOINT_OF_OCTICONS_GIT_BRANCH' '
   #typeset -g POWERLEVEL9K_VCS_REMOTE_BRANCH_ICON='\u'$CODEPOINT_OF_OCTICONS_REPO_PUSH' '
   typeset -g POWERLEVEL9K_VCS_GIT_ICON='\u'$CODEPOINT_OF_AWESOME_GIT' '
   typeset -g POWERLEVEL9K_VCS_GIT_GITHUB_ICON='\u'$CODEPOINT_OF_AWESOME_GITHUB_ALT' '

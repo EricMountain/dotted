@@ -167,16 +167,3 @@ if [[ -f $HOME/.set-openstack-credentials ]]; then
 fi
 
 [[ -d ~/.global_npm/bin ]] && export PATH=$PATH:~/.global_npm/bin
-
-function source_docker_env() {
-    # readlink ${BASH_SOURCE[0]} would be more elegant, however doesn't work when sourcing under zsh
-    local bashrc_dir=$(dirname $(readlink -f ~/.bashrc))
-
-    if grep -q 'NAME="Ubuntu"' /etc/*-release; then
-        pushd ${bashrc_dir}/../../docker &>/dev/null
-        . ./env
-        popd &>/dev/null
-    fi
-}
-
-source_docker_env
