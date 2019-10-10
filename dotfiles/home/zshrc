@@ -121,3 +121,12 @@ kubeconfig-zshexit-hook() {
     rm -f $KUBECONFIG
 }
 zshexit_functions+=( kubeconfig-zshexit-hook )
+
+# Go projects ##############################################################
+if [ -d ~/dev/go ] ; then
+    setopt -o null_glob
+    for x in $(find ~/dev/go -maxdepth 2 -name \*.rc); do
+        source $x
+    done
+    setopt +o null_glob
+fi
