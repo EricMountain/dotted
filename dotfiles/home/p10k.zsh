@@ -66,6 +66,8 @@ fi
       # rust_version          # rustc version (https://www.rust-lang.org)
       # rbenv                   # ruby version from rbenv (https://github.com/rbenv/rbenv)
       # rvm                     # ruby version from rvm (https://rvm.io)
+      aws
+      gce
       kubecontext             # current kubernetes context (https://kubernetes.io/)
       terraform               # terraform workspace (https://www.terraform.io)
       # context                 # user@host
@@ -649,10 +651,19 @@ fi
   typeset -g POWERLEVEL9K_KUBECONTEXT_CLASSES=(
       # '*prod*'  PROD    # These values are examples that are unlikely
       # '*test*'  TEST    # to match your needs. Customize them as needed.
+      '*.prod.*'    PROD
+      'general1.*'  PROD2
+      '*.staging.*' STAGING
       '*'       DEFAULT)
   typeset -g POWERLEVEL9K_KUBECONTEXT_DEFAULT_FOREGROUND="cornsilk1"
   # typeset -g POWERLEVEL9K_KUBECONTEXT_DEFAULT_VISUAL_IDENTIFIER_EXPANSION='⭐'
-
+  typeset -g POWERLEVEL9K_KUBECONTEXT_PROD_FOREGROUND="cornsilk1"
+  typeset -g POWERLEVEL9K_KUBECONTEXT_PROD_BACKGROUND="red1"
+  typeset -g POWERLEVEL9K_KUBECONTEXT_PROD2_FOREGROUND="cornsilk1"
+  typeset -g POWERLEVEL9K_KUBECONTEXT_PROD2_BACKGROUND="red1"
+  typeset -g POWERLEVEL9K_KUBECONTEXT_STAGING_FOREGROUND="cornsilk1"
+  typeset -g POWERLEVEL9K_KUBECONTEXT_STAGING_BACKGROUND="orangered1"
+  
   # Use POWERLEVEL9K_KUBECONTEXT_CONTENT_EXPANSION to specify the content displayed by kubecontext
   # segment. Parameter expansions are very flexible and fast, too. See reference:
   # http://zsh.sourceforge.net/Doc/Release/Expansion.html#Parameter-Expansion.
