@@ -160,7 +160,12 @@ alias doScreen='echo ssh -t user@machine screen -D -RR'
 alias smtpclient_test='echo gnutls-cli -V --crlf --starttls some_smtp_mailhub --port 587'
 alias smtpclient_test2='echo gnutls-cli --crlf --starttls some_smtp_mailhub --port 587 --insecure'
 alias dockerlogin='echo curl --insecure --user emountain https://dockerhub.wherever:5000/v2/auth'
-alias kx='kubectx'
+
+#alias kx='kubectx'
+alias k='kubectl'
+alias kg="kubectl get"
+alias kd="kubectl describe"
+#alias k-ns='kubectl config set-context --namespace=$1'
 
 if [[ -f $HOME/.set-openstack-credentials ]]; then
     . $HOME/.set-openstack-credentials
