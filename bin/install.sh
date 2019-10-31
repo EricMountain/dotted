@@ -46,6 +46,14 @@ if [ ! -d ~/.oh-my-zsh ]; then
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 fi
 
+my_zsh_custom=${ZSH_CUSTOM:-~/.oh-my-zsh/custom}
+for x in zsh-syntax-highlighting zsh-autosuggestions ; do
+    if [ ! -d ${my_zsh_custom}/plugins/${x} ] ; then
+        git clone https://github.com/zsh-users/${x} "${my_zsh_custom}/plugins/${x}"
+    fi
+done
+chmod g-w,o-w -R ${my_zsh_custom}
+
 if [ ! -d ~/.oh-my-zsh/custom/themes/powerlevel10k ]; then
     git clone --depth 1 https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
 fi
