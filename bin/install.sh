@@ -43,7 +43,7 @@ esac
 # Oh-my-zsh & P10k #########################################################
 # These should have code reviews before installing really...
 if [ ! -d ~/.oh-my-zsh ]; then
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+    RUNZSH=no CHSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 fi
 
 my_zsh_custom=${ZSH_CUSTOM:-~/.oh-my-zsh/custom}
