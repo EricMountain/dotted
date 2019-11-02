@@ -47,8 +47,8 @@ if [ ! -d ~/.oh-my-zsh ]; then
 fi
 
 my_zsh_custom=${ZSH_CUSTOM:-~/.oh-my-zsh/custom}
-for x in zsh-syntax-highlighting zsh-autosuggestions ; do
-    if [ ! -d ${my_zsh_custom}/plugins/${x} ] ; then
+for x in zsh-syntax-highlighting zsh-autosuggestions; do
+    if [ ! -d ${my_zsh_custom}/plugins/${x} ]; then
         git clone https://github.com/zsh-users/${x} "${my_zsh_custom}/plugins/${x}"
     fi
 done
@@ -58,53 +58,44 @@ if [ ! -d ~/.oh-my-zsh/custom/themes/powerlevel10k ]; then
     git clone --depth 1 https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
 fi
 
-# Fonts ####################################################################
-# Awesome
+# Font #####################################################################
+# Awesome… really just for the codepoint mappings that we source on shell startup
 if [ ! -d ~/.awesome-terminal-fonts ]; then
     git clone --depth 1 https://github.com/gabrielelana/awesome-terminal-fonts ~/.awesome-terminal-fonts
-
-    cp -f ~/.awesome-terminal-fonts/build/*.ttf ${FONT_DIR}
     cp -f ~/.awesome-terminal-fonts/build/*.sh ${FONT_DIR}
+fi
+
+if [ -d ~/.awesome-terminal-fonts ]; then
+    for x in devicons-regular.ttf fontawesome-regular.ttf octicons-regular.ttf pomicons-regular.ttf; do
+        rm -f ${FONT_DIR}/awesome/${x}
+    done
 
     if [ ${OS_DIST} != "Apple" ]; then
-        mkdir -p ~/.config/fontconfig/conf.d
-        cp -f ~/.awesome-terminal-fonts/config/10-symbols.conf ~/.config/fontconfig/conf.d
+        rm -f ~/.config/fontconfig/conf.d/10-symbols.conf
+        rm -f ~/.config/fontconfig/conf.d/10-symbols-source_code_pro.conf
+        rm -f ~/.config/fontconfig/conf.d/10-symbols-cascadia.conf
         fc-cache -fv ${FONT_DIR}
-
-        sed 's/PragmataPro/Source Code Pro for Powerline/' ~/.config/fontconfig/conf.d/10-symbols.conf >~/.config/fontconfig/conf.d/10-symbols-source_code_pro.conf
-        sed 's/PragmataPro/Cascadia Code/' ~/.config/fontconfig/conf.d/10-symbols.conf >~/.config/fontconfig/conf.d/10-symbols-cascadia.conf
     fi
 fi
 
-# Nerd fonts (not used: doesn't look as good as the Source Code Pro for
-# Powerline font from system packages on Arch)
-# [[ -d ${FONT_DIR}/S ]] || mkdir -p ${FONT_DIR}/S
-# v=v2.0.0
-# for f in Sauce%20Code%20Pro%20Medium%20Nerd%20Font%20Complete%20Mono.ttf Sauce%20Code%20Pro%20Medium%20Nerd%20Font%20Complete.ttf; do
-#     (
-#         fn=$(echo $f | sed 's/%20/ /g')
-#         cd ${FONT_DIR}/S
-#         if [[ ! -e "${fn}" ]] ; then
-#             curl -Lo "${fn}" "https://github.com/ryanoasis/nerd-fonts/raw/${v}/patched-fonts/SourceCodePro/Medium/complete/${f}"
-#         fi
-#     )
-# done
-
-# MS' Cascadia Code (ligatures)
+# Delugia font: MS' Cascadia Code (ligatures) with Nerd fonts etc
 (
     [[ -d ${FONT_DIR} ]] || mkdir -p ${FONT_DIR}
-    cd ${FONT_DIR}
-    curl -LO 'https://github.com/microsoft/cascadia-code/releases/download/v1909.16/Cascadia.ttf'
+    cp fonts/DelugiaCodeNerdFontComplete.ttf ${FONT_DIR}
+    if [ ${OS_DIST} != "Apple" ]; then
+        fc-cache -fv ${FONT_DIR}
+    fi
+
 )
 
 # Fuzzy matching ###########################################################
-if [ -d ~/.fzf ]; then
+if [ ! -d ~/.fzf ]; then
     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
     ~/.fzf/install --key-bindings --completion --no-update-rc
 fi
 
 # PATH overrides for MacOS #################################################
-# brew coreutils is a prereq
+# brew coreutils is a prereq, we need GNU ln
 PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 
 # Links ####################################################################

@@ -137,16 +137,14 @@ fi
   # POWERLEVEL9K_MODE=compatible, or install the recommended Powerlevel10k font from
   # https://github.com/romkatv/powerlevel10k/#recommended-meslo-nerd-font-patched-for-powerlevel10k
   # and set POWERLEVEL9K_MODE=nerdfont-complete.
-  if [ ${OS_DIST} = "Ubuntu" ] ; then
-    typeset -g POWERLEVEL9K_MODE=awesome-mapped-fontconfig
-  elif [ ${OS_DIST} = "ArchLinux" ]; then
-    typeset -g POWERLEVEL9K_MODE=awesome-mapped-fontconfig
-    #typeset -g POWERLEVEL9K_MODE=awesome-fontconfig
-  elif [ ${OS_DIST} = "Apple" ] ; then
-    typeset -g POWERLEVEL9K_MODE=awesome-mapped-fontconfig
-  else
-    echo Need to set POWERLEVEL9K_MODE.
-  fi
+  case ${OS_DIST} in
+    Ubuntu|ArchLinux|Apple)
+      typeset -g POWERLEVEL9K_MODE=awesome-mapped-fontconfig
+      ;;
+    *)
+      echo Need to set POWERLEVEL9K_MODE.
+      ;;
+  esac
 
   # When set to true, icons appear before content on both sides of the prompt. When set
   # to false, icons go after content. If empty or not set, icons go before content in the left
