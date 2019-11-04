@@ -71,8 +71,7 @@ source ~/.p10k.zsh
 # Add wisely, as too many plugins slow down shell startup.
 # Not used:
 # - history-substring-search: fzf is better
-# - zsh-syntax-highlighting
-plugins=(git zsh-autosuggestions)
+plugins=(git encode64 docker gpg-agent zsh-syntax-highlighting zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 
