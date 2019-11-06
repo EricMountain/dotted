@@ -23,8 +23,8 @@ case ${OS_CLASS} in
     FONT_DIR=~/.local/share/fonts
     ;;
     Darwin)
-    export PATH="/usr/local/opt/coreutils/libexec/gnubin:/usr/local/opt/findutils/libexec/gnubin:/usr/local/opt/gnu-sed/libexec/gnubin:/usr/local/bin:$PATH:$HOME/go/src/github.com/DataDog/devtools/bin"
-    export PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
+    export PATH="/usr/local/bin:$PATH"
+    export PATH="$(ls -d -1 /usr/local/opt/*/libexec/gnubin | tr '\n' ':'):$PATH"
     FONT_DIR=~/Library/Fonts
     ;;
 esac
@@ -71,7 +71,8 @@ source ~/.p10k.zsh
 # Add wisely, as too many plugins slow down shell startup.
 # Not used:
 # - history-substring-search: fzf is better
-plugins=(git encode64 docker gpg-agent zsh-syntax-highlighting zsh-autosuggestions)
+# - gpg-agent: causes locale errors on shell startup, also maybe not needed
+plugins=(git encode64 docker zsh-syntax-highlighting zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 
