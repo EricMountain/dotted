@@ -72,7 +72,7 @@ source ~/.p10k.zsh
 # Not used:
 # - history-substring-search: fzf is better
 # - gpg-agent: causes locale errors on shell startup, also maybe not needed
-plugins=(git encode64 docker zsh-syntax-highlighting zsh-autosuggestions)
+plugins=(git encode64 docker vscode zsh-syntax-highlighting zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 
