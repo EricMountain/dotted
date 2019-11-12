@@ -106,3 +106,8 @@ cd dotfiles/home
 [[ -L ~/.emacs ]] || ln --backup -s $(pwd)/emacs ~/.emacs
 [[ -L ~/.pam_environment ]] || ln --backup -s $(pwd)/pam_environment ~/.pam_environment
 [[ -L ~/.toprc ]] || ln --backup -s $(pwd)/toprc ~/.toprc
+
+# Git ######################################################################
+git config --global rebase.autosquash true
+git config --global merge.ff only
+
