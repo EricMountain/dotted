@@ -122,7 +122,7 @@ done
 # Kube Config ##############################################################
 export KUBECONFIG="$(mktemp $TMPDIR/.kube.XXXXXXXXX)"
 kubeconfig-zshexit-hook() {
-    if [ "$KUBECONFIG" = $HOME/.kube/kind-config-kind ] ; then
+    if [ "$KUBECONFIG" != $HOME/.kube/kind-config-kind ] ; then
         rm -f $KUBECONFIG
     fi
 }
