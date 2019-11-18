@@ -649,7 +649,7 @@ fi
       # '*prod*'  PROD    # These values are examples that are unlikely
       # '*test*'  TEST    # to match your needs. Customize them as needed.
       '*.prod.*'    PROD
-      'general1.*'  PROD2
+      '*.ddbuild.*'  PROD2
       '*.staging.*' STAGING
       '*'       DEFAULT)
   typeset -g POWERLEVEL9K_KUBECONTEXT_DEFAULT_FOREGROUND="cornsilk1"
