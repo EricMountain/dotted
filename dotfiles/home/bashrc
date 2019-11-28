@@ -170,12 +170,13 @@ alias kdp='kubectl describe pod'
 #alias ksns='_ksns(){ kubectl config set-context --current --namespace=$1 } ; _ksns'
 alias ksns='_ksns(){ kubectl config set-context $(kubectl config current-context) --namespace=$1 } ; _ksns'
 
-kube-new-worktree() {
+_kube-new-worktree() {
     if [ ! -d ~/dev/go/kubernetes-$1/go/src/k8s.io/kubernetes ] ; then
         cd ~/dev/go/kubernetes/go/src/k8s.io/kubernetes && git worktree add ~/dev/go/kubernetes-$1/go/src/k8s.io/kubernetes $1
     fi
     cd ~/dev/go/kubernetes-$1/go/src/k8s.io/kubernetes
 }
+alias kube-new-worktree='_kube-new-worktree'
 
 if [[ -f $HOME/.set-openstack-credentials ]]; then
     . $HOME/.set-openstack-credentials
