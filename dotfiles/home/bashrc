@@ -166,7 +166,9 @@ alias kg='kubectl get'
 alias kgp='kubectl get pod'
 alias kd='kubectl describe'
 alias kdp='kubectl describe pod'
-alias ksns='_ksns(){ kubectl config set-context --current --namespace=$1 } ; _ksns'
+# Requires "recent" kubectl (1.10 doesn't work)
+#alias ksns='_ksns(){ kubectl config set-context --current --namespace=$1 } ; _ksns'
+alias ksns='_ksns(){ kubectl config set-context $(kubectl config current-context) --namespace=$1 } ; _ksns'
 
 kube-new-worktree() {
     if [ ! -d ~/dev/go/kubernetes-$1/go/src/k8s.io/kubernetes ] ; then

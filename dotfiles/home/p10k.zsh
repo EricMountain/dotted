@@ -646,21 +646,28 @@ fi
   #   typeset -g POWERLEVEL9K_KUBECONTEXT_TEST_VISUAL_IDENTIFIER_EXPANSION='⭐'
   #   typeset -g POWERLEVEL9K_KUBECONTEXT_TEST_CONTENT_EXPANSION='> ${P9K_CONTENT} <'
   typeset -g POWERLEVEL9K_KUBECONTEXT_CLASSES=(
-      # '*prod*'  PROD    # These values are examples that are unlikely
-      # '*test*'  TEST    # to match your needs. Customize them as needed.
-      '*.prod.*'    PROD
-      '*.ddbuild.*'  PROD2
-      '*.staging.*' STAGING
-      '*'       DEFAULT)
+      '*.prod.*'               PROD
+      '*.ddbuild.*'            PROD2
+      'fury.*'                 CNB
+      'feury.*'                CNB
+      '*.staging.*'            STAGING
+      'kubernetes-admin@kind*' KIND
+      '*'                      DEFAULT)
   typeset -g POWERLEVEL9K_KUBECONTEXT_DEFAULT_FOREGROUND="cornsilk1"
-  # typeset -g POWERLEVEL9K_KUBECONTEXT_DEFAULT_VISUAL_IDENTIFIER_EXPANSION='⭐'
-  typeset -g POWERLEVEL9K_KUBECONTEXT_PROD_FOREGROUND="cornsilk1"
+  typeset -g POWERLEVEL9K_KUBECONTEXT_DEFAULT_BACKGROUND="magenta2"
+  typeset -g POWERLEVEL9K_KUBECONTEXT_PROD_FOREGROUND="black"
   typeset -g POWERLEVEL9K_KUBECONTEXT_PROD_BACKGROUND="red1"
-  typeset -g POWERLEVEL9K_KUBECONTEXT_PROD2_FOREGROUND="cornsilk1"
+  typeset -g POWERLEVEL9K_KUBECONTEXT_PROD2_FOREGROUND="black"
   typeset -g POWERLEVEL9K_KUBECONTEXT_PROD2_BACKGROUND="red1"
-  typeset -g POWERLEVEL9K_KUBECONTEXT_STAGING_FOREGROUND="cornsilk1"
+  typeset -g POWERLEVEL9K_KUBECONTEXT_STAGING_FOREGROUND="black"
   typeset -g POWERLEVEL9K_KUBECONTEXT_STAGING_BACKGROUND="orangered1"
-  
+  typeset -g POWERLEVEL9K_KUBECONTEXT_CNB_FOREGROUND="black"
+  typeset -g POWERLEVEL9K_KUBECONTEXT_CNB_BACKGROUND="chartreuse1"
+  typeset -g POWERLEVEL9K_KUBECONTEXT_KIND_FOREGROUND="chartreuse1"
+  typeset -g POWERLEVEL9K_KUBECONTEXT_KIND_BACKGROUND="black"
+
+  # typeset -g POWERLEVEL9K_KUBECONTEXT_DEFAULT_VISUAL_IDENTIFIER_EXPANSION='⭐'
+
   # Use POWERLEVEL9K_KUBECONTEXT_CONTENT_EXPANSION to specify the content displayed by kubecontext
   # segment. Parameter expansions are very flexible and fast, too. See reference:
   # http://zsh.sourceforge.net/Doc/Release/Expansion.html#Parameter-Expansion.
@@ -705,6 +712,9 @@ fi
   POWERLEVEL9K_KUBECONTEXT_DEFAULT_CONTENT_EXPANSION+='${P9K_KUBECONTEXT_CLUSTER}'
   # Append the current context's namespace if it's not "default".
   POWERLEVEL9K_KUBECONTEXT_DEFAULT_CONTENT_EXPANSION+='${${:-/$P9K_KUBECONTEXT_NAMESPACE}:#/default}'
+
+  # Not sure why, but kind expands excessively if we don't have this
+  typeset -g POWERLEVEL9K_KUBECONTEXT_KIND_CONTENT_EXPANSION='${P9K_KUBECONTEXT_CLUSTER}${${:-/$P9K_KUBECONTEXT_NAMESPACE}:#/default}'
 
   # Custom prefix.
   # typeset -g POWERLEVEL9K_KUBECONTEXT_PREFIX='%fat '
