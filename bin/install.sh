@@ -83,9 +83,9 @@ fi
     [[ -d ${FONT_DIR} ]] || mkdir -p ${FONT_DIR}
     cp fonts/DelugiaCodeNerdFontComplete.ttf ${FONT_DIR}
     if [ ${OS_DIST} != "Apple" ]; then
-        fc-cache -fv ${FONT_DIR}
+        # Ignore missing fc-cache (e.g. headless systems) etc
+        fc-cache -fv ${FONT_DIR} || true
     fi
-
 )
 
 # Fuzzy matching ###########################################################
@@ -96,7 +96,9 @@ fi
 
 # PATH overrides for MacOS #################################################
 # brew coreutils is a prereq, we need GNU ln
-PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+if [ ${OS_DIST} = "Apple" ]; then
+    PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+fi
 
 # Links ####################################################################
 cd dotfiles/home
@@ -110,4 +112,3 @@ cd dotfiles/home
 # Git ######################################################################
 git config --global rebase.autosquash true
 git config --global merge.ff only
-
