@@ -42,8 +42,7 @@ fi
       command_execution_time
       # =========================[ Line #2 ]=========================
       newline
-      history
-      # prompt_char             # prompt symbol
+      prompt_char             # prompt symbol
   )
 
   # The list of segments shown on the right. Fill it with less important segments.
@@ -54,6 +53,7 @@ fi
       # =========================[ Line #1 ]=========================
       # status                  # exit code of the last command
       # command_execution_time  # duration of the last command
+      history
       background_jobs         # presence of background jobs
       virtualenv              # python virtual environment (https://docs.python.org/3/library/venv.html)
       # anaconda                # conda environment (https://conda.io/)
@@ -388,9 +388,10 @@ fi
 
 
   # Icon color.
-  typeset -g POWERLEVEL9K_VCS_VISUAL_IDENTIFIER_COLOR=199
+  #typeset -g POWERLEVEL9K_VCS_VISUAL_IDENTIFIER_COLOR=199
   # Custom icon.
   # typeset -g POWERLEVEL9K_VCS_VISUAL_IDENTIFIER_EXPANSION='⭐'
+  typeset -g POWERLEVEL9K_VCS_VISUAL_IDENTIFIER_EXPANSION=''
   # Custom prefix.
   # typeset -g POWERLEVEL9K_VCS_PREFIX='%fon '
 
@@ -507,7 +508,7 @@ fi
 
   ####################################[ context: user@host ]####################################
   # Default context color.
-  typeset -g POWERLEVEL9K_CONTEXT_FOREGROUND=180
+  typeset -g POWERLEVEL9K_CONTEXT_FOREGROUND="cornsilk1"
   # Default context format: %n is username, %m is hostname.
   typeset -g POWERLEVEL9K_CONTEXT_TEMPLATE='%n@%m'
 
@@ -765,8 +766,8 @@ fi
   # typeset -g POWERLEVEL9K_TIME_PREFIX='%fat '
 
   #########################################[ history ]#########################################
-  typeset -g POWERLEVEL9K_HISTORY_BACKGROUND="aquamarine1"
-  typeset -g POWERLEVEL9K_HISTORY_FOREGROUND="black"
+  typeset -g POWERLEVEL9K_HISTORY_BACKGROUND="black"
+  typeset -g POWERLEVEL9K_HISTORY_FOREGROUND="aquamarine1"
 
   #########################################[ context ]#########################################
   typeset -g POWERLEVEL9K_CONTEXT_DEFAULT_FOREGROUND="aquamarine1"
