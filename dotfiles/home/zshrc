@@ -75,6 +75,7 @@ source ~/.p10k.zsh
 plugins=(git encode64 docker vscode zsh-syntax-highlighting zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
+LESS=-FRX
 
 # alias overrides ##########################################################
 alias gl='git pull --ff-only'
