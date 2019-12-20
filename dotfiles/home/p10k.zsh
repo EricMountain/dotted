@@ -35,6 +35,7 @@ fi
   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
       # =========================[ Line #1 ]=========================
       # os_icon                 # os identifier
+      history
       context
       dir                     # current directory
       vcs                     # git status
@@ -53,7 +54,6 @@ fi
       # =========================[ Line #1 ]=========================
       # status                  # exit code of the last command
       # command_execution_time  # duration of the last command
-      history
       background_jobs         # presence of background jobs
       virtualenv              # python virtual environment (https://docs.python.org/3/library/venv.html)
       # anaconda                # conda environment (https://conda.io/)
