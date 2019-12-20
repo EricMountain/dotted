@@ -170,6 +170,7 @@ alias kdp='kubectl describe pod'
 # Requires "recent" kubectl (1.10 doesn't work)
 #alias ksns='_ksns(){ kubectl config set-context --current --namespace=$1 } ; _ksns'
 alias ksns='_ksns(){ kubectl config set-context $(kubectl config current-context) --namespace=$1 } ; _ksns'
+alias kngp='_kngp(){ kubectl get pods --field-selector=spec.nodeName=$1 --all-namespaces --no-headers -owide } ; _kngp'
 
 _kube-new-worktree() {
     if [ ! -d ~/dev/go/kubernetes-$1/go/src/k8s.io/kubernetes ] ; then
