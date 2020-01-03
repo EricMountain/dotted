@@ -121,7 +121,7 @@ for x in oc kubectl ; do
 done
 
 # Kube Config ##############################################################
-# Don't torch existing config in case we're re-sourcing
+# Don't touch existing config in case we're re-sourcing
 [ -z "${KUBECONFIG}" ] && export KUBECONFIG="$(mktemp $TMPDIR/.kube.XXXXXXXXX)"
 kubeconfig-zshexit-hook() {
     if [ "$KUBECONFIG" != $HOME/.kube/kind-config-kind ] ; then
