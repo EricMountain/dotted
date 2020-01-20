@@ -74,9 +74,7 @@ source ~/.p10k.zsh
 # - gpg-agent: causes locale errors on shell startup, also maybe not needed
 plugins=(git encode64 docker vscode zsh-syntax-highlighting zsh-autosuggestions)
 
-alias ls
 source $ZSH/oh-my-zsh.sh
-alias ls
 
 # Fix some oh-my-zsh silliness
 export LESS=-FRX
