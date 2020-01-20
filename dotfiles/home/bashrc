@@ -6,7 +6,6 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-alias ls='ls --color=auto'
 PS1='[\u@\h \W]\$ '
 
 [[ -d ~/.profile.d ]] && for x in ~/.profile.d/*.sh; do source $x; done
@@ -36,7 +35,7 @@ case "$TERM" in
 esac
 
 # enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
+if type dircolors > /dev/null 2>&1 ; then
     eval "$(dircolors -b)"
     alias ls='ls --color=auto'
 
