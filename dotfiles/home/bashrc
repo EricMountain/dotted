@@ -174,6 +174,8 @@ alias kdp='kubectl describe pod'
 alias ksns='_ksns(){ kubectl config set-context $(kubectl config current-context) --namespace=$1 } ; _ksns'
 alias kngp='_kngp(){ kubectl get pods --field-selector=spec.nodeName=$1 --all-namespaces --no-headers -owide } ; _kngp'
 
+alias knodeinfo="kubectl get nodes -o custom-columns='Name:metadata.name,Kernel:status.nodeInfo.kernelVersion,Kubelet:status.nodeInfo.kubeletVersion,Runtime:status.nodeInfo.containerRuntimeVersion,Distrib:status.nodeInfo.osImage,Instance:metadata.labels.beta\.kubernetes\.io/instance-type' --sort-by=.metadata.creationTimestamp"
+
 _kube-new-worktree() {
     if [ ! -d ~/dev/go/kubernetes-$1/go/src/k8s.io/kubernetes ] ; then
         cd ~/dev/go/kubernetes/go/src/k8s.io/kubernetes && git worktree add ~/dev/go/kubernetes-$1/go/src/k8s.io/kubernetes $1

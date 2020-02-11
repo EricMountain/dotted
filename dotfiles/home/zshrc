@@ -134,7 +134,7 @@ kubeconfig-zshexit-hook() {
 zshexit_functions+=( kubeconfig-zshexit-hook )
 
 alias kzap='truncate -s 0 $KUBECONFIG'
-alias kind-env='export KUBECONFIG="$(kind get kubeconfig-path --name="kind")" ; kubectl cluster-info'
+alias kind-env='kind get kubeconfig >! ${KUBECONFIG} ; kubectl cluster-info'
 
 # Go projects ##############################################################
 if [ -d ~/dev/go ] ; then

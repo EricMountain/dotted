@@ -652,7 +652,7 @@ fi
       'fury.*'                 CNB
       'feury.*'                CNB
       '*.staging.*'            STAGING
-      'kubernetes-admin@kind*' KIND
+      'kind-kind*'             KIND
       '*'                      DEFAULT)
   typeset -g POWERLEVEL9K_KUBECONTEXT_DEFAULT_FOREGROUND="cornsilk1"
   typeset -g POWERLEVEL9K_KUBECONTEXT_DEFAULT_BACKGROUND="magenta2"
