@@ -141,6 +141,12 @@ if [ -d ~/dev/go ] ; then
     setopt -o null_glob
     for x in $(find ~/dev/go -maxdepth 2 -name \*.rc); do
         source $x
+        if [ -n "$GOPATH" ] ; then
+            echo WARNING: GOPATH has been set by $x, script needs fixing.
+            export GOPATH=
+        fi
     done
     setopt +o null_glob
 fi
+
+
