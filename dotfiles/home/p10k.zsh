@@ -648,7 +648,8 @@ fi
   #   typeset -g POWERLEVEL9K_KUBECONTEXT_TEST_CONTENT_EXPANSION='> ${P9K_CONTENT} <'
   typeset -g POWERLEVEL9K_KUBECONTEXT_CLASSES=(
       '*.prod.*'               PROD
-      '*.ddbuild.*'            PROD2
+      '*.ddbuild.*'            PROD
+      '*.blue/*'               PROD
       'fury.*'                 CNB
       'feury.*'                CNB
       '*.staging.*'            STAGING
@@ -658,8 +659,6 @@ fi
   typeset -g POWERLEVEL9K_KUBECONTEXT_DEFAULT_BACKGROUND="magenta2"
   typeset -g POWERLEVEL9K_KUBECONTEXT_PROD_FOREGROUND="cornsilk1"
   typeset -g POWERLEVEL9K_KUBECONTEXT_PROD_BACKGROUND="red1"
-  typeset -g POWERLEVEL9K_KUBECONTEXT_PROD2_FOREGROUND="cornsilk1"
-  typeset -g POWERLEVEL9K_KUBECONTEXT_PROD2_BACKGROUND="red1"
   typeset -g POWERLEVEL9K_KUBECONTEXT_STAGING_FOREGROUND="black"
   typeset -g POWERLEVEL9K_KUBECONTEXT_STAGING_BACKGROUND="orangered1"
   typeset -g POWERLEVEL9K_KUBECONTEXT_CNB_FOREGROUND="black"
