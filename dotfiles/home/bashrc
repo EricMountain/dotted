@@ -142,7 +142,7 @@ if [ -z "$ZSH_NAME" ]; then
     fi
 fi
 
-for d in $HOME/bin $HOME/dev/minishift ; do
+for d in $HOME/bin ; do
     [[ -d $d ]] && export PATH=$PATH:$d
 done
 

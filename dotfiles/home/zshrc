@@ -127,8 +127,8 @@ done
 # Don't touch existing config in case we're re-sourcing
 [ -z "${KUBECONFIG}" ] && export KUBECONFIG="$(mktemp $TMPDIR/.kube.XXXXXXXXX)"
 kubeconfig-zshexit-hook() {
-    if [ "$KUBECONFIG" != $HOME/.kube/kind-config-kind ] ; then
-        rm -f $KUBECONFIG
+    if [[ "${KUBECONFIG}" != $HOME/.kube/kind-config-kind && ! "${KUBECONFIG}" =~ "${HOME}/protected/.*" ]] ; then
+        rm -f ${KUBECONFIG}
     fi
 }
 zshexit_functions+=( kubeconfig-zshexit-hook )
