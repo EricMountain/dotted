@@ -35,7 +35,7 @@ fi
   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
       # =========================[ Line #1 ]=========================
       # os_icon                 # os identifier
-      history
+      # history
       context
       dir                     # current directory
       vcs                     # git status
@@ -647,22 +647,34 @@ fi
   #   typeset -g POWERLEVEL9K_KUBECONTEXT_TEST_VISUAL_IDENTIFIER_EXPANSION='⭐'
   #   typeset -g POWERLEVEL9K_KUBECONTEXT_TEST_CONTENT_EXPANSION='> ${P9K_CONTENT} <'
   typeset -g POWERLEVEL9K_KUBECONTEXT_CLASSES=(
-      '*.prod.*'               PROD
-      '*.ddbuild.*'            PROD
-      '*.blue/*'               PROD
-      'fury.*'                 CNB
-      'feury.*'                CNB
-      '*.staging.*'            STAGING
-      'kind-kind*'             KIND
-      '*'                      DEFAULT)
+      '*.prod.*'                    PROD
+      '*.ddbuild.*'                 BUILD
+      '*.blue/*'                    PROD
+      'fury.*'                      CNB
+      'feury.*'                     CNB
+      'rage.*'                      CNB
+      '*.staging.*'                 STAGING
+      'kind-kind*'                  KIND
+      'plain*.us1.*.dog*'           PROD
+      'plain*.us1-build.*.dog*'     BUILD
+      'parent*.us1-build.*.dog*'    STAGING
+      '*'                           DEFAULT)
+
   typeset -g POWERLEVEL9K_KUBECONTEXT_DEFAULT_FOREGROUND="cornsilk1"
   typeset -g POWERLEVEL9K_KUBECONTEXT_DEFAULT_BACKGROUND="magenta2"
+
+  typeset -g POWERLEVEL9K_KUBECONTEXT_BUILD_FOREGROUND="cornsilk1"
+  typeset -g POWERLEVEL9K_KUBECONTEXT_BUILD_BACKGROUND="plum4"
+
   typeset -g POWERLEVEL9K_KUBECONTEXT_PROD_FOREGROUND="cornsilk1"
   typeset -g POWERLEVEL9K_KUBECONTEXT_PROD_BACKGROUND="red1"
+
   typeset -g POWERLEVEL9K_KUBECONTEXT_STAGING_FOREGROUND="black"
   typeset -g POWERLEVEL9K_KUBECONTEXT_STAGING_BACKGROUND="orangered1"
+
   typeset -g POWERLEVEL9K_KUBECONTEXT_CNB_FOREGROUND="black"
   typeset -g POWERLEVEL9K_KUBECONTEXT_CNB_BACKGROUND="chartreuse1"
+
   typeset -g POWERLEVEL9K_KUBECONTEXT_KIND_FOREGROUND="chartreuse1"
   typeset -g POWERLEVEL9K_KUBECONTEXT_KIND_BACKGROUND="black"
 
