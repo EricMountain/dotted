@@ -124,8 +124,19 @@ for x in oc kubectl ; do
 done
 
 # Kube Config ##############################################################
+
+# Contexts stored in ~/.kube/config serve as a template
+if [ ! -e ~/.kube/config ] ; then
+    mkdir ~/.kube
+    touch ~/.kube/config
+fi
+
 # Don't touch existing config in case we're re-sourcing
-[ -z "${KUBECONFIG}" ] && export KUBECONFIG="$(mktemp $TMPDIR/.kube.XXXXXXXXX)"
+if [ -z "${KUBECONFIG}" ] ; then
+    export KUBECONFIG="$(mktemp ${TMPDIR}/.kube.XXXXXXXXX)"
+    cat ~/.kube/config >> ${KUBECONFIG}
+fi
+
 kubeconfig-zshexit-hook() {
     if [[ "${KUBECONFIG}" != $HOME/.kube/kind-config-kind && ! "${KUBECONFIG}" =~ "${HOME}/protected/.*" ]] ; then
         rm -f ${KUBECONFIG}
@@ -133,8 +144,14 @@ kubeconfig-zshexit-hook() {
 }
 zshexit_functions+=( kubeconfig-zshexit-hook )
 
-alias kzap='truncate -s 0 $KUBECONFIG'
+alias kzap='truncate -s 0 ${KUBECONFIG} && cat ~/.kube/config >> ${KUBECONFIG}'
 alias kind-env='kind get kubeconfig >! ${KUBECONFIG} ; kubectl cluster-info'
+kgo() {
+    kubectl config use-context ${1}
+    if [ -n "${2}" ] ; then
+        kubectl config set-context $(kubectl config current-context) --namespace=${2}
+    fi
+}
 
 # Go projects ##############################################################
 if [ -d ~/dev/go ] ; then
@@ -149,4 +166,7 @@ if [ -d ~/dev/go ] ; then
     setopt +o null_glob
 fi
 
+# GPG ######################################################################
+# Required for pin entry
+export GPG_TTY=$(tty)
 
