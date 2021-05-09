@@ -231,10 +231,9 @@
  '(display-time-mode t)
  '(load-home-init-file t t)
  '(package-selected-packages
-   (quote
-    (elpy yaml-mode web-mode use-package rust-mode puppet-mode markdown-mode magit go-mode gnuplot-mode flymake-puppet ansible)))
+   '(elpy yaml-mode web-mode use-package rust-mode puppet-mode markdown-mode magit go-mode gnuplot-mode flymake-puppet ansible))
  '(ps-n-up-printing 2)
- '(scroll-bar-mode (quote right))
+ '(scroll-bar-mode 'right)
  '(select-enable-clipboard t)
  '(show-paren-mode t)
  '(tool-bar-mode nil))
