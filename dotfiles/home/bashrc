@@ -176,6 +176,10 @@ alias kngp='_kngp(){ kubectl get pods --field-selector=spec.nodeName=$1 --all-na
 
 alias knodeinfo="kubectl get nodes -o custom-columns='Name:metadata.name,Kernel:status.nodeInfo.kernelVersion,Kubelet:status.nodeInfo.kubeletVersion,Runtime:status.nodeInfo.containerRuntimeVersion,Distrib:status.nodeInfo.osImage,Instance:metadata.labels.beta\.kubernetes\.io/instance-type' --sort-by=.metadata.creationTimestamp"
 
+firefox_mem_usage() {
+    ps -Ao pid,pmem,comm | grep Web | grep -v Qt | awk 'BEGIN {a = 0}; {a += $2; print}; END {print a}'
+}
+
 _kube-new-worktree() {
     if [ ! -d ~/dev/go/kubernetes-$1/go/src/k8s.io/kubernetes ] ; then
         cd ~/dev/go/kubernetes/go/src/k8s.io/kubernetes && git worktree add ~/dev/go/kubernetes-$1/go/src/k8s.io/kubernetes $1
