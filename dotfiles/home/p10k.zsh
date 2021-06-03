@@ -653,6 +653,9 @@ fi
       'fury.*'                      CNB
       'feury.*'                     CNB
       'rage.*'                      CNB
+      'elysium.*'                   CNB
+      'chillpenguin.*'              CNB
+      'biscuits.*'                  CNB
       '*.staging.*'                 STAGING
       'kind-kind*'                  KIND
       'plain*.us1.*.dog*'           PROD
