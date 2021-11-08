@@ -25,6 +25,7 @@ case ${OS_CLASS} in
     Darwin)
     export PATH="/usr/local/bin:$PATH"
     export PATH="$(ls -d -1 /usr/local/opt/*/libexec/gnubin | tr '\n' ':'):$PATH"
+    export PATH="/usr/local/opt/ruby/bin:$PATH"
     FONT_DIR=~/Library/Fonts
     ;;
 esac
