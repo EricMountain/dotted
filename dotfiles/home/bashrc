@@ -154,15 +154,16 @@ alias gls='git log --graph --decorate --date=relative --format="%C(yellow)%h%C(r
 alias gla='git log --graph --decorate --date=relative --format="%C(yellow)%h%C(reset) %C(green)%cr%Creset %s%C(bold red)%d%C(white) [%aN]%C(reset)" --all'
 alias gv='git describe --tags --always --dirty'
 alias grel='git log $1^..$2 --pretty=oneline --graph --decorate --no-merges'
+alias gwl='git worktree list'
+# Git clean pruned+merged branches
+alias gcdb='git checkout master && git fetch --prune --all && git branch --merged | grep -v \* | xargs -r -- git branch -d'
+
 alias doSshFS='echo sshfs -o transform_symlinks user@machine:/ ~/sshfs_mount/'
 alias doScreen='echo ssh -t user@machine screen -D -RR'
 alias smtpclient_test='echo gnutls-cli -V --crlf --starttls some_smtp_mailhub --port 587'
 alias smtpclient_test2='echo gnutls-cli --crlf --starttls some_smtp_mailhub --port 587 --insecure'
 alias dockerlogin='echo curl --insecure --user emountain https://dockerhub.wherever:5000/v2/auth'
 alias bashtcp='exec 5<> /dev/tcp/myhost.com/80 ; cat <&5 & ; printf "GET / HTTP/1.0\r\n\r\n" >&5'
-
-# Git clean pruned+merged branches
-alias gcdb='git checkout master && git fetch --prune --all && git branch --merged | grep -v \* | xargs -r -- git branch -d'
 
 alias k='kubectl'
 alias kg='kubectl get'
