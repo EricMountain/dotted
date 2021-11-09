@@ -23,12 +23,16 @@ case ${OS_CLASS} in
     FONT_DIR=~/.local/share/fonts
     ;;
     Darwin)
+    # Make brew-installed take precedence over system binaries
     export PATH="/usr/local/bin:$PATH"
     export PATH="$(ls -d -1 /usr/local/opt/*/libexec/gnubin | tr '\n' ':'):$PATH"
-    export PATH="/usr/local/opt/ruby/bin:$PATH"
+    [[ -d "/usr/local/opt/ruby/bin" ]] && export PATH="/usr/local/opt/ruby/bin:$PATH"
+    # Ruby Version Manager
+    [[ -d "$HOME/.rvm/bin" ]] && export PATH="$PATH:$HOME/.rvm/bin"
     FONT_DIR=~/Library/Fonts
     ;;
 esac
+
 [[ -d ${FONT_DIR} ]] || mkdir -p ${FONT_DIR}
 
 # Specific pre-stuff #######################################################
@@ -191,4 +195,3 @@ alias g='goland .'
 alias p='pycharm .'
 alias i='idea .'
 alias r='rubymine .'
-
