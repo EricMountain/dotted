@@ -85,7 +85,7 @@ if [ -z "$ZSH_NAME" ]; then
         fi
     }
 
-    # Timetstamp to calculate command duration
+    # Timestamp to calculate command duration
     PS0='$(touch $TMPDIR/.bash.cmd.start.pid.$$)'
 
     set_prompt() {
@@ -155,6 +155,7 @@ alias gla='git log --graph --decorate --date=relative --format="%C(yellow)%h%C(r
 alias gv='git describe --tags --always --dirty'
 alias grel='git log $1^..$2 --pretty=oneline --graph --decorate --no-merges'
 alias gwl='git worktree list'
+alias gw='git wip'
 # Git clean pruned+merged branches
 alias gcdb='git checkout master && git fetch --prune --all && git branch --merged | grep -v \* | xargs -r -- git branch -d'
 
@@ -171,8 +172,8 @@ alias kgp='kubectl get pod'
 alias kd='kubectl describe'
 alias kdp='kubectl describe pod'
 # Requires "recent" kubectl (1.10 doesn't work)
-#alias ksns='_ksns(){ kubectl config set-context --current --namespace=$1 } ; _ksns'
-alias ksns='_ksns(){ kubectl config set-context $(kubectl config current-context) --namespace=$1 } ; _ksns'
+alias ksns='_ksns(){ kubectl config set-context --current --namespace=$1 } ; _ksns'
+# alias ksns='_ksns(){ kubectl config set-context $(kubectl config current-context) --namespace=$1 } ; _ksns'
 alias kngp='_kngp(){ kubectl get pods --field-selector=spec.nodeName=$1 --all-namespaces --no-headers -owide } ; _kngp'
 
 alias knodeinfo="kubectl get nodes -o custom-columns='Name:metadata.name,Kernel:status.nodeInfo.kernelVersion,Kubelet:status.nodeInfo.kubeletVersion,Runtime:status.nodeInfo.containerRuntimeVersion,Distrib:status.nodeInfo.osImage,Instance:metadata.labels.beta\.kubernetes\.io/instance-type' --sort-by=.metadata.creationTimestamp"
@@ -188,9 +189,5 @@ _kube-new-worktree() {
     cd ~/dev/go/kubernetes-$1/go/src/k8s.io/kubernetes
 }
 alias kube-new-worktree='_kube-new-worktree'
-
-if [[ -f $HOME/.set-openstack-credentials ]]; then
-    . $HOME/.set-openstack-credentials
-fi
 
 [[ -d ~/.global_npm/bin ]] && export PATH=$PATH:~/.global_npm/bin
