@@ -44,9 +44,10 @@ if type dircolors > /dev/null 2>&1 ; then
     alias egrep='egrep --color=auto'
 fi
 
-# libvirt needs a more relaxed umask, 0002, however not using that currently so let's be more secure instead
+# libvirt needs a relaxed umask, 0002, however not using that currently
 # Base setting on Linux is through pam_umask + /etc/login.defs
-umask 0077
+# Not sharing machines currently, so let just use the system default
+#umask 0077
 
 export EDITOR=vim
 
