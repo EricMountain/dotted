@@ -75,6 +75,11 @@ if [ "${OS_DIST}" = "Apple" ] ; then
     }' > /dev/null
 fi
 
+# direnv ###################################################################
+if type direnv >/dev/null 2>&1 ; then
+    eval "$(direnv hook zsh)"
+fi
+
 # Oh-my-zsh ################################################################
 
 # Path to your oh-my-zsh installation.
