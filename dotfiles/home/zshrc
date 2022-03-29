@@ -30,6 +30,9 @@ case ${OS_CLASS} in
     # Ruby Version Manager
     [[ -d "$HOME/.rvm/bin" ]] && export PATH="$PATH:$HOME/.rvm/bin"
     FONT_DIR=~/Library/Fonts
+    # PyEnv
+    eval "$(pyenv init -)"
+    eval "$(pyenv init --path)"
     ;;
 esac
 
