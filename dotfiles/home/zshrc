@@ -108,6 +108,11 @@ plugins=(git encode64 docker vscode zsh-syntax-highlighting zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 
+export HISTFILESIZE=1000000000
+export HISTSIZE=1000000000
+export SAVEHIST=1000000000
+export HISTFILE=~/.zsh_history
+
 # Fix some oh-my-zsh silliness
 export LESS=-FRX
 alias ls='ls --color=auto -G'
