@@ -108,10 +108,14 @@ plugins=(git encode64 docker vscode zsh-syntax-highlighting zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 
+# Shell history management
 export HISTFILESIZE=1000000000
 export HISTSIZE=1000000000
 export SAVEHIST=1000000000
 export HISTFILE=~/.zsh_history
+setopt HIST_FIND_NO_DUPS
+setopt inc_append_history
+setopt share_history
 
 # Fix some oh-my-zsh silliness
 export LESS=-FRX
