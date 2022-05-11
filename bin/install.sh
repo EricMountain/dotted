@@ -116,3 +116,5 @@ git config --global pull.ff only
 git config --global diff.colorMoved dimmed-zebra
 git config --global diff.colorMovedWS no
 git config --global diff.wsErrorHighlight all
+git config --global core.quotepath off
+
