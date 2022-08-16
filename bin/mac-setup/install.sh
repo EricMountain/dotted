@@ -25,7 +25,6 @@ set -euo pipefail
 
 # Others: alfred spectacle
 # virtualbox: not compatible with arm64 chip
-for y in iterm2 gimp github \
-         finicky ; do
+for y in iterm2 gimp github finicky ; do
     /opt/homebrew/bin/brew install --cask $y
 done
