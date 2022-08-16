@@ -13,7 +13,7 @@ set -euo pipefail
 # This has to be done by hand first. It opens a dialog.
 #xcode-select --install
 
-#/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 for x in bash ack httpie git watch autojump ipcalc \
     wget coreutils gnu-sed tmux fzf jq python virtualenv\
