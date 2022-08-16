@@ -10,6 +10,8 @@
 xcode-select --install
 #sudo /usr/sbin/DevToolsSecurity -enable
 
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
 for x in bash ack httpie git watch autojump ipcalc \
     wget coreutils gnu-sed tmux fzf jq \
     ncdu parallel zsh findutils gcc make gpg2 pinentry bat gnu-tar \
