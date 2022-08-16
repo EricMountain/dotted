@@ -13,18 +13,18 @@ set -euo pipefail
 # This has to be done by hand first. It opens a dialog.
 #xcode-select --install
 
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-for x in bash ack httpie git watch autojump ipcalc \
-    wget coreutils gnu-sed tmux fzf jq python virtualenv\
-    ncdu parallel zsh findutils gcc make gpg2 pinentry bat gnu-tar \
-    gnu-time hub grep git-delta tree yq \
-    direnv datamash zotero pyenv bluesnooze java ; do
-	/opt/homebrew/bin/brew install $x
-done
+#/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+#
+#for x in bash ack httpie git watch autojump ipcalc \
+#    wget coreutils gnu-sed tmux fzf jq python virtualenv\
+#    ncdu parallel zsh findutils gcc make gpg2 pinentry bat gnu-tar \
+#    gnu-time hub grep git-delta tree yq \
+#    direnv datamash zotero pyenv bluesnooze java ; do
+#	/opt/homebrew/bin/brew install $x
+#done
 
 # Others: alfred spectacle
-for y in gifs iterm2 virtualbox gimp github \
+for y in iterm2 virtualbox gimp github \
          finicky ; do
     /opt/homebrew/bin/brew install --cask $y
 done
