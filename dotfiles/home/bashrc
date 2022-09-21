@@ -176,7 +176,9 @@ alias kdp='kubectl describe pod'
 alias ksns='_ksns(){ kubectl config set-context --current --namespace=$1 } ; _ksns'
 # alias ksns='_ksns(){ kubectl config set-context $(kubectl config current-context) --namespace=$1 } ; _ksns'
 alias kngp='_kngp(){ kubectl get pods --field-selector=spec.nodeName=$1 --all-namespaces --no-headers -owide } ; _kngp'
-
+alias kgpw='kubectl get pods -owide'
+alias kgpww='kubectl get pods -owide -w'
+alias kgpy='kubectl get pods -oyaml'
 alias knodeinfo="kubectl get nodes -o custom-columns='Name:metadata.name,Kernel:status.nodeInfo.kernelVersion,Kubelet:status.nodeInfo.kubeletVersion,Runtime:status.nodeInfo.containerRuntimeVersion,Distrib:status.nodeInfo.osImage,Instance:metadata.labels.beta\.kubernetes\.io/instance-type' --sort-by=.metadata.creationTimestamp"
 
 firefox_mem_usage() {
