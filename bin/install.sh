@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -euo pipefail
-
+set -x
 # Crude OS check ###########################################################
 if grep -q 'NAME="Ubuntu"' /etc/os-release 2>/dev/null; then
     OS_CLASS=Linux
@@ -52,7 +52,7 @@ for x in zsh-syntax-highlighting zsh-autosuggestions; do
         git clone https://github.com/zsh-users/${x} "${my_zsh_custom}/plugins/${x}"
     fi
 done
-chmod g-w,o-w -R ${my_zsh_custom}
+#chmod g-w,o-w -R ${my_zsh_custom}
 
 if [ ! -d ~/.oh-my-zsh/custom/themes/powerlevel10k ]; then
     git clone --depth 1 https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
@@ -97,7 +97,7 @@ fi
 # PATH overrides for MacOS #################################################
 # brew coreutils is a prereq, we need GNU ln
 if [ ${OS_DIST} = "Apple" ]; then
-    PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+    export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
 fi
 
 # Links ####################################################################

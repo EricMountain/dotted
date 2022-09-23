@@ -192,3 +192,5 @@ _kube-new-worktree() {
 alias kube-new-worktree='_kube-new-worktree'
 
 [[ -d ~/.global_npm/bin ]] && export PATH=$PATH:~/.global_npm/bin
+
+[[ -d /opt/homebrew/opt/llvm/bin ]] && export PATH=/opt/homebrew/opt/llvm/bin:$PATH
