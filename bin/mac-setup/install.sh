@@ -25,7 +25,7 @@ for x in bash ack httpie git watch autojump ipcalc sipcalc \
 done
 
 # Others: alfred, spectacle, virtualbox
-for y in iterm2 gimp github finicky ; do
+for y in iterm2 gimp github finicky notunes ; do
     /opt/homebrew/bin/brew install --cask $y
 done
 
