@@ -16,16 +16,18 @@ set -euo pipefail
 # TODO Check if brew is already installed before doing this
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-for x in bash ack httpie git watch autojump ipcalc \
+for x in bash ack httpie git watch autojump ipcalc sipcalc \
     wget coreutils gnu-sed tmux fzf jq python virtualenv\
     ncdu parallel zsh findutils gcc make gpg2 pinentry bat gnu-tar \
-    gnu-time hub grep git-delta tree yq \
+    gnu-time hub grep git-delta tree yq rbenv \
     direnv datamash zotero pyenv bluesnooze java ; do
 	/opt/homebrew/bin/brew install $x
 done
 
-# Others: alfred spectacle
-# virtualbox: not compatible with arm64 chip
+# Others: alfred, spectacle, virtualbox
 for y in iterm2 gimp github finicky ; do
     /opt/homebrew/bin/brew install --cask $y
 done
+
+# Todo for Rachael
+# * Install rbenv, sipcalc
