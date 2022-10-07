@@ -19,7 +19,7 @@ set -euo pipefail
 for x in bash ack httpie git watch autojump ipcalc sipcalc \
     wget coreutils gnu-sed tmux fzf jq python virtualenv\
     ncdu parallel zsh findutils gcc make gpg2 pinentry bat gnu-tar \
-    gnu-time hub grep git-delta tree yq rbenv \
+    gnu-time hub grep git-delta tree yq rbenv unnaturalscrollwheels \
     direnv datamash zotero pyenv bluesnooze java ; do
 	/opt/homebrew/bin/brew install $x
 done
