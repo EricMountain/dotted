@@ -28,6 +28,9 @@ case ${OS_CLASS} in
         export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:${PATH?}"
         # Prefer GNU binaries to Macintosh binaries.
         export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:${PATH}"
+        for x in /opt/homebrew/opt/gnu-* ; do
+            export PATH="${x}/libexec/gnubin:${PATH}"
+        done
         # PyEnv
         eval "$(pyenv init -)"
         eval "$(pyenv init --path)"
