@@ -650,9 +650,8 @@ fi
       '*.prod.*'                    PROD
       '*.ddbuild.*'                 BUILD
       '*.blue/*'                    PROD
-      'fury.*'                      CNB
-      'feury.*'                     CNB
-      'rage.*'                      CNB
+      'snowver.*'                   CNB
+      'muk.*'                       CNB
       'elysium.*'                   CNB
       'chillpenguin.*'              CNB
       'biscuits.*'                  CNB
