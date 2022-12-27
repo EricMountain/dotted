@@ -143,7 +143,7 @@ if [ -z "$ZSH_NAME" ]; then
     fi
 fi
 
-for d in $HOME/bin $HOME/.ghcup/bin ; do
+for d in $HOME/bin $HOME/.ghcup/bin $HOME/.cargo/bin ; do
     [[ -d $d ]] && export PATH=$PATH:$d
 done
 
