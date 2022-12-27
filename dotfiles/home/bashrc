@@ -143,11 +143,11 @@ if [ -z "$ZSH_NAME" ]; then
     fi
 fi
 
-for d in $HOME/bin $HOME/.ghcup/bin $HOME/.cargo/bin ; do
+for d in $HOME/bin $HOME/.ghcup/bin $HOME/.cargo/bin ~/.global_npm/bin ; do
     [[ -d $d ]] && export PATH=$PATH:$d
 done
 
-for d in $HOME/.go/bin ; do
+for d in $HOME/.go/bin /opt/homebrew/opt/llvm/bin ; do
     [[ -d $d ]] && export PATH=$d:$PATH
 done
 
@@ -172,9 +172,7 @@ alias kg='kubectl get'
 alias kgp='kubectl get pod'
 alias kd='kubectl describe'
 alias kdp='kubectl describe pod'
-# Requires "recent" kubectl (1.10 doesn't work)
 alias ksns='_ksns(){ kubectl config set-context --current --namespace=$1 } ; _ksns'
-# alias ksns='_ksns(){ kubectl config set-context $(kubectl config current-context) --namespace=$1 } ; _ksns'
 alias kngp='_kngp(){ kubectl get pods --field-selector=spec.nodeName=$1 --all-namespaces --no-headers -owide } ; _kngp'
 alias kgpw='kubectl get pods -owide'
 alias kgpww='kubectl get pods -owide -w'
@@ -192,7 +190,3 @@ _kube-new-worktree() {
     cd ~/dev/go/kubernetes-$1/go/src/k8s.io/kubernetes
 }
 alias kube-new-worktree='_kube-new-worktree'
-
-[[ -d ~/.global_npm/bin ]] && export PATH=$PATH:~/.global_npm/bin
-
-[[ -d /opt/homebrew/opt/llvm/bin ]] && export PATH=/opt/homebrew/opt/llvm/bin:$PATH
