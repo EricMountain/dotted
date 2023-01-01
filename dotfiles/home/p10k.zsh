@@ -137,7 +137,7 @@ fi
   # https://github.com/romkatv/powerlevel10k/#recommended-meslo-nerd-font-patched-for-powerlevel10k
   # and set POWERLEVEL9K_MODE=nerdfont-complete.
   case ${OS_DIST} in
-    Ubuntu|ArchLinux|Apple)
+    Ubuntu|ArchLinux|Fedora|Apple)
       typeset -g POWERLEVEL9K_MODE=awesome-mapped-fontconfig
       ;;
     *)

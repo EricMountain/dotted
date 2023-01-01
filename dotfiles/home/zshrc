@@ -10,6 +10,9 @@ if grep -q 'NAME="Ubuntu"' /etc/os-release 2> /dev/null ; then
 elif grep -q 'NAME="Arch Linux"' /etc/os-release 2> /dev/null ; then
     OS_CLASS=Linux
     OS_DIST=ArchLinux
+elif grep -q 'NAME="Fedora Linux"' /etc/os-release 2> /dev/null ; then
+    OS_CLASS=Linux
+    OS_DIST=Fedora
 elif [ "$(uname)" = "Darwin" ]; then
     OS_CLASS=Darwin
     OS_DIST=Apple
@@ -150,7 +153,7 @@ bindkey '^o' ranger-cd
 
 # VSCode ###################################################################
 vscode-current-directory() {
-    if which code-insiders > /dev/null ; then
+    if which code-insiders > /dev/null 2>&1 ; then
         code-insiders .
     else
         code .
