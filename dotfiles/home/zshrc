@@ -194,9 +194,10 @@ zshexit_functions+=( kubeconfig-zshexit-hook )
 alias kzap='truncate -s 0 ${KUBECONFIG} && cat ~/.kube/config >> ${KUBECONFIG}'
 alias kind-env='kind get kubeconfig >! ${KUBECONFIG} ; kubectl cluster-info'
 kgo() {
-    kubectl config use-context ${1}
-    if [ -n "${2}" ] ; then
-        kubectl config set-context $(kubectl config current-context) --namespace=${2}
+    if kubectl config use-context ${1} 2>/dev/null ; then
+        if [ -n "${2}" ] ; then
+            kubectl config set-context $(kubectl config current-context) --namespace=${2}
+        fi
     fi
 }
 
