@@ -141,7 +141,7 @@ for d in $HOME/bin $HOME/.ghcup/bin $HOME/.cargo/bin ~/.global_npm/bin ; do
     [[ -d $d ]] && export PATH=$PATH:$d
 done
 
-for d in $HOME/.go/bin /opt/homebrew/opt/llvm/bin ; do
+for d in $HOME/.go/bin /opt/homebrew/opt/llvm/bin /opt/homebrew/opt/openjdk/bin ; do
     [[ -d $d ]] && export PATH=$d:$PATH
 done
 
