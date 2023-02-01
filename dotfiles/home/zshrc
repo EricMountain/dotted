@@ -224,3 +224,6 @@ alias p='pycharm .'
 alias i='idea .'
 alias r='rubymine .'
 alias c='clion .'
+
+# Docker ####################################################################
+[ -f $HOME/.docker/init-zsh.sh ] && source $HOME/.docker/init-zsh.sh
