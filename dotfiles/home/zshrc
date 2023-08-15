@@ -4,13 +4,13 @@
 # ls hyperlinks
 
 # OS detection ################################################################
-if grep -q 'NAME="Ubuntu"' /etc/os-release 2> /dev/null ; then
+if grep -q 'NAME="Ubuntu"' /etc/os-release 2>/dev/null; then
     OS_CLASS=Linux
     OS_DIST=Ubuntu
-elif grep -q 'NAME="Arch Linux"' /etc/os-release 2> /dev/null ; then
+elif grep -q 'NAME="Arch Linux"' /etc/os-release 2>/dev/null; then
     OS_CLASS=Linux
     OS_DIST=ArchLinux
-elif grep -q 'NAME="Fedora Linux"' /etc/os-release 2> /dev/null ; then
+elif grep -q 'NAME="Fedora Linux"' /etc/os-release 2>/dev/null; then
     OS_CLASS=Linux
     OS_DIST=Fedora
 elif [ "$(uname)" = "Darwin" ]; then
@@ -22,30 +22,30 @@ else
 fi
 
 case ${OS_CLASS} in
-    Linux)
-        FONT_DIR=~/.local/share/fonts
+Linux)
+    FONT_DIR=~/.local/share/fonts
     ;;
-    Darwin)
-        FONT_DIR=~/Library/Fonts
-        # Make brew-installed take precedence over system binaries
-        export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:${PATH?}"
-        # Prefer GNU binaries to Macintosh binaries.
-        export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:${PATH}"
-        for x in /opt/homebrew/opt/gnu-* ; do
-            export PATH="${x}/libexec/gnubin:${PATH}"
-        done
-        # PyEnv
-        eval "$(pyenv init -)"
-        eval "$(pyenv init --path)"
-        # Load ruby shims (need to install rbenv)
-        #eval "$(rbenv init -)"
+Darwin)
+    FONT_DIR=~/Library/Fonts
+    # Make brew-installed take precedence over system binaries
+    export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:${PATH?}"
+    # Prefer GNU binaries to Macintosh binaries.
+    export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:${PATH}"
+    for x in /opt/homebrew/opt/gnu-*; do
+        export PATH="${x}/libexec/gnubin:${PATH}"
+    done
+    # PyEnv
+    eval "$(pyenv init -)"
+    eval "$(pyenv init --path)"
+    # Load ruby shims (need to install rbenv)
+    #eval "$(rbenv init -)"
     ;;
 esac
 
 [[ -d ${FONT_DIR} ]] || mkdir -p ${FONT_DIR}
 
 # Specific pre-stuff #######################################################
-if [ -d ~/.local-config.d ] ; then
+if [ -d ~/.local-config.d ]; then
     setopt -o null_glob
     for x in $(find ~/.local-config.d -name \*.zsh); do
         source $x
@@ -75,17 +75,17 @@ FONT_DIR=
 # Caps-Lock (39) --> Escape (39)
 # See key table: https://developer.apple.com/library/archive/technotes/tn2450/_index.html
 
-if [ "${OS_DIST}" = "Apple" ] ; then
+if [ "${OS_DIST}" = "Apple" ]; then
     hidutil property --set '{"UserKeyMapping":
         [{"HIDKeyboardModifierMappingSrc":0x7000000e7,
           "HIDKeyboardModifierMappingDst":0x70000004c},
          {"HIDKeyboardModifierMappingSrc":0x700000039,
           "HIDKeyboardModifierMappingDst":0x700000029}]
-    }' > /dev/null
+    }' >/dev/null
 fi
 
 # direnv ###################################################################
-if type direnv >/dev/null 2>&1 ; then
+if type direnv >/dev/null 2>&1; then
     eval "$(direnv hook zsh)"
 fi
 
@@ -141,9 +141,9 @@ ranger-cd() {
     tempfile=$(mktemp)
     ranger --choosedir="$tempfile" "${@:-$(pwd)}" <$TTY
     test -f "$tempfile" &&
-    if [ "$(cat -- "$tempfile")" != "$(echo -n $(pwd))" ]; then
-        cd -- "$(cat "$tempfile")"
-    fi
+        if [ "$(cat -- "$tempfile")" != "$(echo -n $(pwd))" ]; then
+            cd -- "$(cat "$tempfile")"
+        fi
     rm -f -- "$tempfile"
     # hacky way of transferring over previous command and updating the screen
     VISUAL=true zle edit-command-line
@@ -153,7 +153,7 @@ bindkey '^o' ranger-cd
 
 # VSCode ###################################################################
 vscode-current-directory() {
-    if which code-insiders > /dev/null 2>&1 ; then
+    if which code-insiders >/dev/null 2>&1; then
         code-insiders .
     else
         code .
@@ -163,8 +163,8 @@ zle -N vscode-current-directory
 bindkey '^v' vscode-current-directory
 
 # Completion ###############################################################
-for x in kubectl ddtool ; do
-    if $x completion zsh > $TMPDIR/zsh_completion_$$.sh 2> /dev/null ; then
+for x in kubectl ddtool; do
+    if type $x &>/dev/null && $x completion zsh >$TMPDIR/zsh_completion_$$.sh 2>/dev/null; then
         source $TMPDIR/zsh_completion_$$.sh
         rm $TMPDIR/zsh_completion_$$.sh
     fi
@@ -173,31 +173,31 @@ done
 # Kube Config ##############################################################
 
 # Contexts stored in ~/.kube/config serve as a template
-if [ ! -e ~/.kube/config ] ; then
+if [ ! -e ~/.kube/config ]; then
     mkdir ~/.kube
     touch ~/.kube/config
 fi
 
 # Don't touch existing config in case we're re-sourcing
-if [ -z "${KUBECONFIG}" ] ; then
+if [ -z "${KUBECONFIG}" ]; then
     export KUBECONFIG="$(mktemp ${TMPDIR}/.kube.XXXXXXXXX)"
-    cat ~/.kube/config >> ${KUBECONFIG}
+    cat ~/.kube/config >>${KUBECONFIG}
 fi
 
 kubeconfig-zshexit-hook() {
-    if [[ "${KUBECONFIG}" != $HOME/.kube/kind-config-kind && ! "${KUBECONFIG}" =~ "${HOME}/protected/.*" ]] ; then
+    if [[ "${KUBECONFIG}" != $HOME/.kube/kind-config-kind && ! "${KUBECONFIG}" =~ "${HOME}/protected/.*" ]]; then
         rm -f ${KUBECONFIG}
     fi
 }
-zshexit_functions+=( kubeconfig-zshexit-hook )
+zshexit_functions+=(kubeconfig-zshexit-hook)
 
 alias kzap='truncate -s 0 ${KUBECONFIG} && cat ~/.kube/config >> ${KUBECONFIG}'
 alias kind-env='kind get kubeconfig >! ${KUBECONFIG} ; kubectl cluster-info'
 
-if ! type kgo &> /dev/null ; then
+if ! type kgo &>/dev/null; then
     kgo() {
-        if kubectl config use-context ${1} 2>/dev/null ; then
-            if [ -n "${2}" ] ; then
+        if kubectl config use-context ${1} 2>/dev/null; then
+            if [ -n "${2}" ]; then
                 kubectl config set-context $(kubectl config current-context) --namespace=${2}
             fi
         fi
@@ -205,11 +205,11 @@ if ! type kgo &> /dev/null ; then
 fi
 
 # Go projects ##############################################################
-if [ -d ~/dev/go ] ; then
+if [ -d ~/dev/go ]; then
     setopt -o null_glob
     for x in $(find ~/dev/go -maxdepth 2 -name \*.rc); do
         source $x
-        if [ -n "$GOPATH" ] ; then
+        if [ -n "$GOPATH" ]; then
             echo WARNING: GOPATH has been set by $x, script needs fixing.
             export GOPATH=
         fi
