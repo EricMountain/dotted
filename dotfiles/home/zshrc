@@ -230,3 +230,6 @@ alias c='clion .'
 
 # Docker ####################################################################
 [ -f $HOME/.docker/init-zsh.sh ] && source $HOME/.docker/init-zsh.sh
+
+# Clear last error
+true
