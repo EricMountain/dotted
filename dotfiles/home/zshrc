@@ -72,17 +72,20 @@ FONT_DIR=
 # Key remapping on Mac #####################################################
 
 # Right-Command (e7) --> Delete (4c)
-# Caps-Lock (39) --> Escape (39)
+# Caps-Lock (39) --> Escape (29)
 # See key table: https://developer.apple.com/library/archive/technotes/tn2450/_index.html
 
 if [ "${OS_DIST}" = "Apple" ]; then
     hidutil property --set '{"UserKeyMapping":
         [{"HIDKeyboardModifierMappingSrc":0x7000000e7,
-          "HIDKeyboardModifierMappingDst":0x70000004c},
-         {"HIDKeyboardModifierMappingSrc":0x700000039,
-          "HIDKeyboardModifierMappingDst":0x700000029}]
+          "HIDKeyboardModifierMappingDst":0x70000004c}]
     }' >/dev/null
 fi
+
+# No longer need Escape key remapping? Except on the old Intel Mac?
+# ,
+#          {"HIDKeyboardModifierMappingSrc":0x700000039,
+#           "HIDKeyboardModifierMappingDst":0x700000029}
 
 # direnv ###################################################################
 if type direnv >/dev/null 2>&1; then

@@ -13,6 +13,9 @@ set -euo pipefail
 # This has to be done by hand first. It opens a dialog.
 #xcode-select --install
 
+# https://stackoverflow.com/a/246128
+script_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
 # TODO Check if brew is already installed before doing this
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
@@ -28,6 +31,10 @@ done
 for y in iterm2 gimp github finicky notunes ; do
     /opt/homebrew/bin/brew install --cask $y
 done
+
+# Make Home/End work properly
+#mkdir -p ~/Library/KeyBindings
+#cp "${script_dir}/DefaultKeyBinding.dict" ~/Library/KeyBindings
 
 # Todo for Rachael
 # * Install rbenv, sipcalc
