@@ -87,6 +87,11 @@ fi
 #          {"HIDKeyboardModifierMappingSrc":0x700000039,
 #           "HIDKeyboardModifierMappingDst":0x700000029}
 
+# Bats test framework ######################################################
+if [ "${OS_DIST}" = "Apple" ]; then
+    export BATS_LIB_PATH=/opt/homebrew/lib
+fi
+
 # direnv ###################################################################
 if type direnv >/dev/null 2>&1; then
     eval "$(direnv hook zsh)"
