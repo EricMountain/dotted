@@ -12,6 +12,11 @@ elif grep -q 'NAME="Arch Linux"' /etc/os-release 2>/dev/null; then
 elif [ "$(uname)" = "Darwin" ]; then
     OS_CLASS=Darwin
     OS_DIST=Apple
+    if [ "$(uname -m)" = "x86_64" ]; then
+        brew_prefix=/usr/local
+    else
+        brew_prefix=/opt/homebrew
+    fi
 else
     echo Unknown OS/distribution.
     exit 1
@@ -97,7 +102,7 @@ fi
 # PATH overrides for MacOS #################################################
 # brew coreutils is a prereq, we need GNU ln
 if [ ${OS_DIST} = "Apple" ]; then
-    export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
+    export PATH="${brew_prefix}/opt/coreutils/libexec/gnubin:$PATH"
 fi
 
 # Links ####################################################################
@@ -117,4 +122,3 @@ git config --global diff.colorMoved dimmed-zebra
 git config --global diff.colorMovedWS no
 git config --global diff.wsErrorHighlight all
 git config --global core.quotepath off
-

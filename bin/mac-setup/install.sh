@@ -14,17 +14,23 @@ set -euo pipefail
 #xcode-select --install
 
 # https://stackoverflow.com/a/246128
-script_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+script_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 
-# TODO Check if brew is already installed before doing this
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+if [ "$(uname -m)" = "x86_64" ]; then
+    brew_prefix=/usr/local
+else
+    brew_prefix=/opt/homebrew
+fi
+
+if [[ ! -x ${brew_prefix}/bin/brew ]]; then
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
 
 for x in bash ack httpie git watch autojump ipcalc sipcalc \
-    wget coreutils gnu-sed tmux fzf jq python virtualenv\
-    ncdu parallel zsh findutils gcc make gpg2 pinentry bat gnu-tar \
+    wget coreutils gnu-sed tmux fzf jq python virtualenv ncdu parallel zsh findutils gcc make gpg2 pinentry bat gnu-tar \
     gnu-time hub grep git-delta tree yq rbenv unnaturalscrollwheels \
     direnv datamash zotero pyenv bluesnooze java bats-core; do
-	/opt/homebrew/bin/brew install $x
+    ${brew_prefix}/bin/brew install $x
 done
 
 brew tap bats-core/bats-core
@@ -34,8 +40,8 @@ brew install bats-file
 brew install bats-detik
 
 # Others: alfred, spectacle, virtualbox
-for y in iterm2 gimp github finicky notunes ; do
-    /opt/homebrew/bin/brew install --cask $y
+for y in iterm2 gimp github finicky notunes; do
+    ${brew_prefix}/bin/brew install --cask $y
 done
 
 # Make Home/End work properly
@@ -44,3 +50,7 @@ done
 
 # Todo for Rachael
 # * Install rbenv, sipcalc
+
+# Todo when installing for Nat
+# * Install signal, spotify, libreoffice
+# * Install libreoffice-language-pack (requires running a subsequent installer)
