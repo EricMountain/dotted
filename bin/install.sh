@@ -111,7 +111,6 @@ cd dotfiles/home
 [[ -L ~/.zshrc ]] || ln --backup -s $(pwd)/zshrc ~/.zshrc
 [[ -L ~/.p10k.zsh ]] || ln --backup -s $(pwd)/p10k.zsh ~/.p10k.zsh
 [[ -L ~/.emacs ]] || ln --backup -s $(pwd)/emacs ~/.emacs
-[[ -L ~/.pam_environment ]] || ln --backup -s $(pwd)/pam_environment ~/.pam_environment
 [[ -L ~/.toprc ]] || ln --backup -s $(pwd)/toprc ~/.toprc
 
 # Git ######################################################################
