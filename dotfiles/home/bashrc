@@ -37,7 +37,7 @@ esac
 if [[ ${OS_CLASS} == "Linux" ]]; then
     # https://wiki.archlinux.org/index.php/GnuPG#SSH_agent
     unset SSH_AGENT_PID
-    echo ${SSH_AUTH_SOCK:=${XDG_RUNTIME_DIR}/gnupg/S.gpg-agent.ssh}
+    echo ${SSH_AUTH_SOCK:=${XDG_RUNTIME_DIR}/gnupg/S.gpg-agent.ssh} >/dev/null
 
     LC_NUMERIC=fr_FR.UTF-8
     LC_TIME=fr_FR.UTF-8
