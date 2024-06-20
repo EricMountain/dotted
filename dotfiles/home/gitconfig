@@ -1,0 +1,56 @@
+# Not yet handled
+
+[rebase]
+	autosquash = true
+
+[merge]
+	ff = only
+	renamelimit = 10000
+
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+
+[hub]
+	protocol = git
+
+[diff]
+	colorMoved = dimmed-zebra
+	colorMovedWS = no
+	wsErrorHighlight = all
+
+[color "diff"]
+	whitespace = red reverse
+
+[pull]
+	ff = only
+
+[commit]
+	gpgsign = true
+
+[tag]
+	gpgSign = true
+
+[core]
+	quotepath = off
+	hooksPath = /usr/local/dd/global_hooks
+    #pager = delta
+
+#[interactive]
+#    diffFilter = delta --color-only
+
+#[delta]
+#    features = side-by-side line-numbers decorations
+#    whitespace-error-style = 22 reverse
+
+#[delta "decorations"]
+#    commit-decoration-style = bold yellow box ul
+#    file-style = bold yellow ul
+#    file-decoration-style = none
+
+[alias]
+  # https://carolynvanslyck.com/blog/2020/12/git-wip/
+  wip = for-each-ref --sort='authordate:iso8601' --format=' %(color:green)%(authordate:relative)%09%(color:white)%(refname:short)' refs/heads
+  fuzzy-switch = "!f() { git branch --sort=-committerdate --format='%(refname:short)' | fzf | xargs git switch; } ; f"

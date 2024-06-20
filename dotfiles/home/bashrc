@@ -203,5 +203,3 @@ _kube-new-worktree() {
     cd ~/dev/go/kubernetes-$1/go/src/k8s.io/kubernetes
 }
 alias kube-new-worktree='_kube-new-worktree'
-
-#[ -f $HOME/.docker/init-bash.sh ] && source $HOME/.docker/init-bash.sh
