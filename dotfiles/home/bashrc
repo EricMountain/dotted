@@ -167,7 +167,8 @@ done
 alias gls='git log --graph --decorate --date=relative --format="%C(yellow)%h%C(reset) %C(green)%cr%Creset %s%C(bold red)%d%C(white) [%aN]%C(reset)"'
 alias gla='git log --graph --decorate --date=relative --format="%C(yellow)%h%C(reset) %C(green)%cr%Creset %s%C(bold red)%d%C(white) [%aN]%C(reset)" --all'
 alias gv='git describe --tags --always --dirty'
-alias grel='git log $1^..$2 --pretty=oneline --graph --decorate --no-merges'
+# shellcheck disable=SC2142
+alias grel='_gitlog(){ git log $1^..$2 --pretty=oneline --graph --decorate --no-merges } ; _gitlog'
 alias gwl='git worktree list'
 alias gw='git wip'
 # Git clean pruned+merged branches
@@ -185,12 +186,19 @@ alias kg='kubectl get'
 alias kgp='kubectl get pod'
 alias kd='kubectl describe'
 alias kdp='kubectl describe pod'
+# shellcheck disable=SC2142
 alias ksns='_ksns(){ kubectl config set-context --current --namespace=$1 } ; _ksns'
+# shellcheck disable=SC2142
 alias kngp='_kngp(){ kubectl get pods --field-selector=spec.nodeName=$1 --all-namespaces --no-headers -owide } ; _kngp'
 alias kgpw='kubectl get pods -owide'
 alias kgpww='kubectl get pods -owide -w'
 alias kgpy='kubectl get pods -oyaml'
 alias knodeinfo="kubectl get nodes -o custom-columns='Name:metadata.name,Kernel:status.nodeInfo.kernelVersion,Kubelet:status.nodeInfo.kubeletVersion,Runtime:status.nodeInfo.containerRuntimeVersion,Distrib:status.nodeInfo.osImage,Instance:metadata.labels.beta\.kubernetes\.io/instance-type' --sort-by=.metadata.creationTimestamp"
+
+# Get the list of containers running on a node using host-net
+_kube-get-node-hostnet-containers() {
+  kubectl get pods -A --field-selector spec.nodeName=$1 -ojson | jq '.items[] | select( .spec.hostNetwork == true ) | .spec.containers[].name'
+}
 
 firefox_mem_usage() {
     ps -Ao pid,pmem,comm | grep Web | grep -v Qt | awk 'BEGIN {a = 0}; {a += $2; print}; END {print a}'
