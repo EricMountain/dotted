@@ -200,6 +200,16 @@ _kube-get-node-hostnet-containers() {
   kubectl get pods -A --field-selector spec.nodeName=$1 -ojson | jq '.items[] | select( .spec.hostNetwork == true ) | .spec.containers[].name'
 }
 
+_kube-check-metadata-server-all-nodes() {
+  while read -r node zone nodeip ; do
+    if ssh -T -n -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $nodeip  -- curl -s 169.254.169.254 >/dev/null 2>&1 ; then
+      echo "node $node in $zone is OK"
+    else
+      echo "node $node in $zone is BROKEN"
+    fi
+  done < <(k get node -o json | jq -r '.items[] | "\(.metadata.name) \(.metadata.labels["topology.kubernetes.io/zone"]) \(.status.addresses[] | select(.type == "InternalIP") | .address)"')
+}
+
 firefox_mem_usage() {
     ps -Ao pid,pmem,comm | grep Web | grep -v Qt | awk 'BEGIN {a = 0}; {a += $2; print}; END {print a}'
 }
