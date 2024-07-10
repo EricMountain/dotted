@@ -36,7 +36,7 @@ Darwin)
     export PATH="${brew_prefix}/bin:${brew_prefix}/sbin:${PATH?}"
     # Prefer GNU binaries to Macintosh binaries.
     export PATH="${brew_prefix}/opt/coreutils/libexec/gnubin:${PATH}"
-    for x in ${brew_prefix}/opt/gnu-*; do
+    for x in ${brew_prefix}/opt/gnu-* ${brew_prefix}/opt/make; do
         export PATH="${x}/libexec/gnubin:${PATH}"
     done
     # PyEnv
