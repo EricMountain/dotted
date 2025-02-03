@@ -34,9 +34,8 @@ Darwin)
     FONT_DIR=~/Library/Fonts
     # Make brew-installed take precedence over system binaries
     export PATH="${brew_prefix}/bin:${brew_prefix}/sbin:${PATH?}"
-    # Prefer GNU binaries to Macintosh binaries.
     export PATH="${brew_prefix}/opt/coreutils/libexec/gnubin:${PATH}"
-    for x in ${brew_prefix}/opt/gnu-* ${brew_prefix}/opt/make; do
+    for x in ${brew_prefix}/opt/gnu-* ${brew_prefix}/opt/make  ${brew_prefix}/opt/grep; do
         export PATH="${x}/libexec/gnubin:${PATH}"
     done
     # PyEnv
