@@ -80,10 +80,18 @@ FONT_DIR=
 # See key table: https://developer.apple.com/library/archive/technotes/tn2450/_index.html
 
 if [ "${OS_DIST}" = "Apple" ]; then
-    hidutil property --set '{"UserKeyMapping":
-        [{"HIDKeyboardModifierMappingSrc":0x7000000e7,
-          "HIDKeyboardModifierMappingDst":0x70000004c}]
-    }' >/dev/null
+    # Temp rewire right-cmd to backspace for Rachel
+    if [ "${HOST}" = "cleverboy" ]; then
+        hidutil property --set '{"UserKeyMapping":
+            [{"HIDKeyboardModifierMappingSrc":0x7000000e7,
+              "HIDKeyboardModifierMappingDst":0x70000002A}]
+        }' >/dev/null
+    else
+        hidutil property --set '{"UserKeyMapping":
+            [{"HIDKeyboardModifierMappingSrc":0x7000000e7,
+              "HIDKeyboardModifierMappingDst":0x70000004c}]
+        }' >/dev/null
+    fi
 fi
 
 # No longer need Escape key remapping? Except on the old Intel Mac?
