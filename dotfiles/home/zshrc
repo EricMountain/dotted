@@ -81,7 +81,7 @@ FONT_DIR=
 
 if [ "${OS_DIST}" = "Apple" ]; then
     # Temp rewire right-cmd to backspace for Rachel
-    if [ "${HOST}" = "cleverboy" ]; then
+    if [[ ${HOST,,} =~ cleverboy.* ]]; then
         hidutil property --set '{"UserKeyMapping":
             [{"HIDKeyboardModifierMappingSrc":0x7000000e7,
               "HIDKeyboardModifierMappingDst":0x70000002A}]
