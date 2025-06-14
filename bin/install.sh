@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -euo pipefail
-set -x
+
 # Crude OS check ###########################################################
 if grep -q 'NAME="Ubuntu"' /etc/os-release 2>/dev/null; then
     OS_CLASS=Linux

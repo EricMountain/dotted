@@ -32,7 +32,7 @@ for x in bash git watch autojump wget coreutils gnu-sed tmux fzf jq python virtu
 done
 
 # Others: alfred, spectacle, virtualbox
-for y in iterm2 gimp font-cascadia-code font-cascadia-code-{nf,pl}; do
+for y in iterm2 gimp font-caskaydia-cove-nerd-font; do
     ${brew_prefix}/bin/brew install --cask $y
 done
 
