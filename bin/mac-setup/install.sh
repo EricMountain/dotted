@@ -27,13 +27,12 @@ if [[ ! -x ${brew_prefix}/bin/brew ]]; then
 fi
 
 for x in bash git watch autojump wget coreutils gnu-sed tmux fzf jq python virtualenv ncdu parallel \
-    zsh findutils gcc make gpg2 pinentry bat gnu-tar gnu-time grep tree yq direnv pyenv java \
-    font-cascadia-code font-cascadia-code-{nf,pl,mono,mono-nf,mono-pl}; do
+    zsh findutils gcc make gpg2 pinentry bat gnu-tar gnu-time grep tree yq direnv pyenv java; do
     ${brew_prefix}/bin/brew install $x
 done
 
 # Others: alfred, spectacle, virtualbox
-for y in iterm2 gimp; do
+for y in iterm2 gimp font-cascadia-code font-cascadia-code-{nf,pl,mono,mono-nf,mono-pl}; do
     ${brew_prefix}/bin/brew install --cask $y
 done
 
