@@ -22,16 +22,12 @@ else
 fi
 
 case ${OS_CLASS} in
-Linux)
-    FONT_DIR=~/.local/share/fonts
-    ;;
 Darwin)
     if [ "$(uname -m)" = "x86_64" ]; then
         brew_prefix=/usr/local
     else
         brew_prefix=/opt/homebrew
     fi
-    FONT_DIR=~/Library/Fonts
     # Make brew-installed take precedence over system binaries
     export PATH="${brew_prefix}/bin:${brew_prefix}/sbin:${PATH?}"
     export PATH="${brew_prefix}/opt/coreutils/libexec/gnubin:${PATH}"
