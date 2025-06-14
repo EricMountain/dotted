@@ -27,7 +27,8 @@ if [[ ! -x ${brew_prefix}/bin/brew ]]; then
 fi
 
 for x in bash git watch autojump wget coreutils gnu-sed tmux fzf jq python virtualenv ncdu parallel \
-    zsh findutils gcc make gpg2 pinentry bat gnu-tar gnu-time grep tree yq direnv pyenv java; do
+    zsh findutils gcc make gpg2 pinentry bat gnu-tar gnu-time grep tree yq direnv pyenv java \
+    font-cascadia-code font-cascadia-code-{nf,pl,mono,mono-nf,mono-pl}; do
     ${brew_prefix}/bin/brew install $x
 done
 
@@ -50,7 +51,7 @@ done
 #     ${brew_prefix}/bin/brew install --cask $y
 # done
 
-# Make Home/End work properly
+# Make Home/End work properly… except this doesn’t work…
 #mkdir -p ~/Library/KeyBindings
 #cp "${script_dir}/DefaultKeyBinding.dict" ~/Library/KeyBindings
 

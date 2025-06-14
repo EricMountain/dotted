@@ -46,8 +46,6 @@ Darwin)
     ;;
 esac
 
-[[ -d ${FONT_DIR} ]] || mkdir -p ${FONT_DIR}
-
 # Specific pre-stuff #######################################################
 if [ -d ~/.local-config.d ]; then
     setopt -o null_glob
@@ -66,12 +64,10 @@ fi
 
 # Load Awesome fonts codepoint mappings ####################################
 setopt -o null_glob
-for x in $(find ${FONT_DIR} -name \*.sh); do
+for x in $(find ${HOME}/.awesome-terminal-fonts/build -name \*.sh); do
     source $x
 done
 setopt +o null_glob
-
-FONT_DIR=
 
 # Key remapping on Mac #####################################################
 
@@ -222,19 +218,6 @@ if ! type kgo &>/dev/null; then
             fi
         fi
     }
-fi
-
-# Go projects ##############################################################
-if [ -d ~/dev/go ]; then
-    setopt -o null_glob
-    for x in $(find ~/dev/go -maxdepth 2 -name \*.rc); do
-        source $x
-        if [ -n "$GOPATH" ]; then
-            echo WARNING: GOPATH has been set by $x, script needs fixing.
-            export GOPATH=
-        fi
-    done
-    setopt +o null_glob
 fi
 
 # GPG ######################################################################

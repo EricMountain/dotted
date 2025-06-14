@@ -38,7 +38,7 @@ Ubuntu)
     sudo apt-get install ranger
     ;;
 ArchLinux)
-    sudo pacman -S ranger
+    sudo pacman -S ranger otf-cascadia-code
     ;;
 Apple)
     brew install ranger
@@ -46,7 +46,6 @@ Apple)
 esac
 
 # Oh-my-zsh & P10k #########################################################
-# These should have code reviews before installing really...
 if [ ! -d ~/.oh-my-zsh ]; then
     RUNZSH=no CHSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 fi
@@ -57,33 +56,38 @@ for x in zsh-syntax-highlighting zsh-autosuggestions; do
         git clone https://github.com/zsh-users/${x} "${my_zsh_custom}/plugins/${x}"
     fi
 done
-#chmod g-w,o-w -R ${my_zsh_custom}
 
 if [ ! -d ~/.oh-my-zsh/custom/themes/powerlevel10k ]; then
     git clone --depth 1 https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
 fi
 
 # Font #####################################################################
-# Awesome… really just for the codepoint mappings that we source on shell startup
+# Awesome… just for the codepoint mappings that we source on shell startup
 if [ ! -d ~/.awesome-terminal-fonts ]; then
     git clone --depth 1 https://github.com/gabrielelana/awesome-terminal-fonts ~/.awesome-terminal-fonts
-    cp -f ~/.awesome-terminal-fonts/build/*.sh ${FONT_DIR}
+    # TODO: Could we arrange not to do this any longer? e.g. source them from here, or simply not need them?
+    # cp -f ~/.awesome-terminal-fonts/build/*.sh ${FONT_DIR}
 fi
 
-if [ -d ~/.awesome-terminal-fonts ]; then
-    for x in devicons-regular.ttf fontawesome-regular.ttf octicons-regular.ttf pomicons-regular.ttf; do
-        rm -f ${FONT_DIR}/awesome/${x}
-    done
-
-    if [ ${OS_DIST} != "Apple" ]; then
-        rm -f ~/.config/fontconfig/conf.d/10-symbols.conf
-        rm -f ~/.config/fontconfig/conf.d/10-symbols-source_code_pro.conf
-        rm -f ~/.config/fontconfig/conf.d/10-symbols-cascadia.conf
-        fc-cache -fv ${FONT_DIR}
-    fi
-fi
+# TODO: remove?
+# if [ -d ~/.awesome-terminal-fonts ]; then
+#     TODO: should be able to remove this
+#     for x in devicons-regular.ttf fontawesome-regular.ttf octicons-regular.ttf pomicons-regular.ttf; do
+#         rm -f ${FONT_DIR}/awesome/${x}
+#     done
+#
+#     TODO: can we remove this? what was it for?
+#     if [ ${OS_DIST} != "Apple" ]; then
+#         rm -f ~/.config/fontconfig/conf.d/10-symbols.conf
+#         rm -f ~/.config/fontconfig/conf.d/10-symbols-source_code_pro.conf
+#         rm -f ~/.config/fontconfig/conf.d/10-symbols-cascadia.conf
+#         fc-cache -fv ${FONT_DIR}
+#     fi
+# fi
 
 # Delugia font: MS' Cascadia Code (ligatures) with Nerd fonts etc
+# This is still better than Cascadia with integrated Nerd fonts because the
+# icons are too small in that one
 (
     [[ -d ${FONT_DIR} ]] || mkdir -p ${FONT_DIR}
     cp fonts/DelugiaCodeNerdFontComplete.ttf ${FONT_DIR}
