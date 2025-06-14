@@ -35,7 +35,7 @@ Darwin)
     # Make brew-installed take precedence over system binaries
     export PATH="${brew_prefix}/bin:${brew_prefix}/sbin:${PATH?}"
     export PATH="${brew_prefix}/opt/coreutils/libexec/gnubin:${PATH}"
-    for x in ${brew_prefix}/opt/gnu-* ${brew_prefix}/opt/make  ${brew_prefix}/opt/grep; do
+    for x in ${brew_prefix}/opt/gnu-* ${brew_prefix}/opt/make ${brew_prefix}/opt/grep; do
         export PATH="${x}/libexec/gnubin:${PATH}"
     done
     # PyEnv
@@ -81,8 +81,8 @@ FONT_DIR=
 
 if [ "${OS_DIST}" = "Apple" ]; then
     # Temp rewire right-cmd to backspace for Rachel
-    h=$(echo $HOST | tr '[:upper:]' '[:lower:]')
-    if [[ "${HOST}" = "cleverboy-2.local" ]]; then
+    h=$(echo ${HOST} | tr '[:upper:]' '[:lower:]')
+    if [[ ${h} == cleverboy* ]]; then
         hidutil property --set '{"UserKeyMapping":
             [{"HIDKeyboardModifierMappingSrc":0x7000000e7,
               "HIDKeyboardModifierMappingDst":0x70000002A}]
@@ -96,7 +96,6 @@ if [ "${OS_DIST}" = "Apple" ]; then
 fi
 
 # No longer need Escape key remapping? Except on the old Intel Mac?
-# ,
 #          {"HIDKeyboardModifierMappingSrc":0x700000039,
 #           "HIDKeyboardModifierMappingDst":0x700000029}
 
