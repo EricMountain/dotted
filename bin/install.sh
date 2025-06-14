@@ -23,15 +23,16 @@ else
 fi
 
 # Pre-reqs and settings ####################################################
-case ${OS_CLASS} in
-Linux)
-    FONT_DIR=~/.local/share/fonts
-    ;;
-Darwin)
-    FONT_DIR=~/Library/Fonts
-    ;;
-esac
-[[ -d ${FONT_DIR} ]] || mkdir -p ${FONT_DIR}
+# TODO: remove when getting rid of the Delugia install below
+# case ${OS_CLASS} in
+# Linux)
+#     FONT_DIR=~/.local/share/fonts
+#     ;;
+# Darwin)
+#     FONT_DIR=~/Library/Fonts
+#     ;;
+# esac
+# [[ -d ${FONT_DIR} ]] || mkdir -p ${FONT_DIR}
 
 case ${OS_DIST} in
 Ubuntu)
@@ -63,10 +64,9 @@ fi
 
 # Font #####################################################################
 # Awesome… just for the codepoint mappings that we source on shell startup
+# TODO: get rid of this
 if [ ! -d ~/.awesome-terminal-fonts ]; then
     git clone --depth 1 https://github.com/gabrielelana/awesome-terminal-fonts ~/.awesome-terminal-fonts
-    # TODO: Could we arrange not to do this any longer? e.g. source them from here, or simply not need them?
-    # cp -f ~/.awesome-terminal-fonts/build/*.sh ${FONT_DIR}
 fi
 
 # TODO: remove?
@@ -88,14 +88,15 @@ fi
 # Delugia font: MS' Cascadia Code (ligatures) with Nerd fonts etc
 # This is still better than Cascadia with integrated Nerd fonts because the
 # icons are too small in that one
-(
-    [[ -d ${FONT_DIR} ]] || mkdir -p ${FONT_DIR}
-    cp fonts/DelugiaCodeNerdFontComplete.ttf ${FONT_DIR}
-    if [ ${OS_DIST} != "Apple" ]; then
-        # Ignore missing fc-cache (e.g. headless systems) etc
-        fc-cache -fv ${FONT_DIR} || true
-    fi
-)
+# TODO: remove as we will no longer install this going forward, in favour of Caskaydia
+# (
+#     [[ -d ${FONT_DIR} ]] || mkdir -p ${FONT_DIR}
+#     cp fonts/DelugiaCodeNerdFontComplete.ttf ${FONT_DIR}
+#     if [ ${OS_DIST} != "Apple" ]; then
+#         # Ignore missing fc-cache (e.g. headless systems) etc
+#         fc-cache -fv ${FONT_DIR} || true
+#     fi
+# )
 
 # Fuzzy matching ###########################################################
 if [ ! -d ~/.fzf ]; then
@@ -125,3 +126,31 @@ git config --global diff.colorMoved dimmed-zebra
 git config --global diff.colorMovedWS no
 git config --global diff.wsErrorHighlight all
 git config --global core.quotepath off
+
+# MacOS ####################################################################
+
+if [ ${OS_DIST} != "Apple" ]; then
+    if [ "$(uname -m)" = "x86_64" ]; then
+        brew_prefix=/usr/local
+    else
+        brew_prefix=/opt/homebrew
+    fi
+
+    if [[ ! -x ${brew_prefix}/bin/brew ]]; then
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    fi
+
+    for x in bash git watch autojump wget coreutils gnu-sed tmux fzf jq python virtualenv ncdu parallel \
+        zsh findutils gcc make gpg2 pinentry bat gnu-tar gnu-time grep tree yq direnv pyenv java; do
+        ${brew_prefix}/bin/brew install $x
+    done
+
+    for y in iterm2 gimp font-caskaydia-cove-nerd-font; do
+        ${brew_prefix}/bin/brew install --cask $y
+    done
+fi
+
+# Local ####################################################################
+if [ -x ~/.local-config.d/install.sh ]; then
+    ~/.local-config.d/install.sh
+fi
