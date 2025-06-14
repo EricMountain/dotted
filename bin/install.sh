@@ -38,7 +38,7 @@ Ubuntu)
     sudo apt-get install ranger
     ;;
 ArchLinux)
-    sudo pacman -S ranger otf-cascadia-code
+    sudo pacman -S ranger ttf-cascadia-code-nerd
     ;;
 Apple)
     brew install ranger
