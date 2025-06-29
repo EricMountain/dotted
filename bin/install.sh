@@ -141,7 +141,7 @@ if [ ${OS_DIST} != "Apple" ]; then
     fi
 
     for x in bash git watch autojump wget coreutils gnu-sed tmux fzf jq python virtualenv ncdu parallel \
-        zsh findutils gcc make gpg2 pinentry bat gnu-tar gnu-time grep tree yq direnv pyenv java; do
+        zsh findutils gcc make gpg2 pinentry bat gnu-tar gnu-time grep tree yq direnv pyenv java awscli; do
         ${brew_prefix}/bin/brew install $x
     done
 
