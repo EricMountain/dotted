@@ -165,13 +165,13 @@ for d in $HOME/.go/bin /opt/homebrew/opt/llvm/bin /opt/homebrew/opt/openjdk/bin;
 done
 
 # Espressif/ESP32 setup
-ESP_VERSION=v5.5
-IDF_PATH="${HOME}/.esp/${ESP_VERSION}/esp-idf"
-export IDF_PATH
-if [ -d ${IDF_PATH} ] ; then
-    . ${IDF_PATH}/add_path.sh > /dev/null
-    . ${IDF_PATH}/export.sh
-fi
+# ESP_VERSION=v5.5
+# IDF_PATH="${HOME}/.esp/${ESP_VERSION}/esp-idf"
+# export IDF_PATH
+# if [ -d ${IDF_PATH} ] ; then
+#     . ${IDF_PATH}/add_path.sh > /dev/null
+#     . ${IDF_PATH}/export.sh
+# fi
 
 alias gls='git log --graph --decorate --date=relative --format="%C(yellow)%h%C(reset) %C(green)%cr%Creset %s%C(bold red)%d%C(white) [%aN]%C(reset)"'
 alias gla='git log --graph --decorate --date=relative --format="%C(yellow)%h%C(reset) %C(green)%cr%Creset %s%C(bold red)%d%C(white) [%aN]%C(reset)" --all'
