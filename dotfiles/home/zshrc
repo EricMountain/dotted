@@ -156,9 +156,9 @@ bindkey '^o' ranger-cd
 # VSCode ###################################################################
 vscode-current-directory() {
     if which code-insiders >/dev/null 2>&1; then
-        code-insiders . >/dev/null 2>&1 &
+        (code-insiders . >/dev/null 2>&1 &)
     else
-        code . >/dev/null 2>&1 &
+        (code . >/dev/null 2>&1 &)
     fi
 }
 zle -N vscode-current-directory
