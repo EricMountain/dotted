@@ -129,7 +129,7 @@ git config --global core.quotepath off
 
 # MacOS ####################################################################
 
-if [ ${OS_DIST} != "Apple" ]; then
+if [ ${OS_DIST} = "Apple" ]; then
     if [ "$(uname -m)" = "x86_64" ]; then
         brew_prefix=/usr/local
     else
