@@ -124,7 +124,8 @@ if [ ${OS_DIST} = "Apple" ]; then
     fi
 
     for x in bash git watch autojump wget coreutils gnu-sed tmux fzf jq python virtualenv ncdu parallel \
-        zsh findutils gcc make gpg2 pinentry bat gnu-tar gnu-time grep tree yq direnv pyenv java awscli; do
+        zsh findutils gcc make gpg2 pinentry bat gnu-tar gnu-time grep tree yq direnv pyenv java awscli \
+        1password-cli age; do
         ${brew_prefix}/bin/brew install $x
     done
 

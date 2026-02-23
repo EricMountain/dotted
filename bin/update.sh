@@ -19,6 +19,8 @@ if [ "$(uname)" = "Darwin" ]; then
 
     # TODO: remove once done on all Macs
     brew install --cask font-caskaydia-cove-nerd-font
+    brew install 1password-cli
+    brew install age
 fi
 
 # Local ####################################################################
