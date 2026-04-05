@@ -156,7 +156,9 @@ if [ -z "$ZSH_NAME" ]; then
     fi
 fi
 
-for d in ~/bin ~/.ghcup/bin ~/.cargo/bin ~/.global_npm/bin; do
+[[ -e ~/.cargo/env ]] && source ~/.cargo/env
+
+for d in ~/bin ~/.ghcup/bin ~/.global_npm/bin; do
     [[ -d $d ]] && export PATH=$PATH:$d
 done
 
