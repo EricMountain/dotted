@@ -53,6 +53,10 @@ if [[ ${OS_CLASS} == "Linux" ]]; then
     export SSH_AUTH_SOCK LC_NUMERIC LC_TIME LC_MONETARY LC_PAPER LC_NAME LC_ADDRESS LC_TELEPHONE LC_MEASUREMENT LC_IDENTIFICATION PAPERSIZE
 fi
 
+if [[ ${OS_CLASS} == "Darwin" && ${USER} == "eric" ]] ; then
+    export LANG=en_GB.UTF-8
+fi
+
 # enable color support of ls and also add handy aliases
 if type dircolors >/dev/null 2>&1; then
     eval "$(dircolors -b)"
